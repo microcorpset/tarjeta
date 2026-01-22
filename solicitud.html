@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud | Jon Glez.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- Mismos estilos base que tu index --- */
+        :root {
+            --primary-blue: #3b82f6;
+            --primary-blue-dark: #2563eb;
+            --bg-dark: #0d1117;
+            --card-bg-light: #161b22;
+            --text-light: #e6edf3;
+            --text-muted: #8b949e;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --input-bg: #0d1117;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://raw.githubusercontent.com/microcorpset/tarjeta/main/bg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card {
+            background: var(--card-bg-light);
+            padding: 2rem;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            max-width: 450px; /* Un poco más ancho para el formulario */
+            width: 100%;
+            border: 1px solid var(--border-color);
+            position: relative;
+            z-index: 20;
+        }
+
+        h2 { margin-top: 0; text-align: center; color: var(--primary-blue); }
+        p.desc { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+        /* --- Estilos del Formulario --- */
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--input-bg);
+            color: var(--text-light);
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-blue-dark);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .back-link:hover { color: var(--text-light); }
+
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Solicitud de Servicio</h2>
+        <p class="desc">Rellena tus datos y el tipo de asistencia que necesitas. Te contactaré a la brevedad.</p>
+
+        <!-- IMPORTANTE: Reemplaza la URL en 'action' con la que te dio Formspree -->
+        <form action="TU_URL_DE_FORMSPREE_AQUI" method="POST">
+            
+            <div class="form-group">
+                <label for="nombre">Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Teléfono / WhatsApp</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Ej. 600 123 456" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tipo">Tipo de Solicitud</label>
+                <select id="tipo" name="tipo_servicio">
+                    <option value="Asistencia Remota">Asistencia Remota</option>
+                    <option value="Recogida de Equipo">Recogida de Equipo</option>
+                    <option value="Presupuesto">Solicitar Presupuesto</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="mensaje">Detalles del problema</label>
+                <textarea id="mensaje" name="mensaje" placeholder="Describe brevemente qué necesitas..." required></textarea>
+            </div>
+
+            <!-- Redirección después de enviar (Opcional, pero recomendado) -->
+            <!-- Si tienes Formspree Pro puedes usar esto, si es gratis te mostrará una página genérica de éxito -->
+            <!-- <input type="hidden" name="_next" value="https://tousuario.github.io/index.html"> -->
+
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-paper-plane"></i> Enviar Solicitud
+            </button>
+        </form>
+
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Volver al inicio
+        </a>
+    </div>
+
+</body>
+</html>
