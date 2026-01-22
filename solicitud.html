@@ -113,6 +113,45 @@
             font-size: 0.9rem;
         }
         .back-link:hover { color: var(--text-light); }
+        /* --- Estilos para la preferencia de contacto --- */
+        .radio-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2 columnas */
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .radio-option:hover {
+            border-color: var(--primary-blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .radio-option input[type="radio"] {
+            width: auto; /* Resetea el ancho del 100% que tenían los inputs generales */
+            margin-right: 10px;
+            accent-color: var(--primary-blue); /* Pone el puntito azul */
+        }
+        
+        .radio-option span {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        /* Ajuste para móvil: que se pongan en una sola columna si la pantalla es muy pequeña */
+        @media (max-width: 400px) {
+            .radio-group { grid-template-columns: 1fr; }
+        }
 
     </style>
 </head>
@@ -132,6 +171,33 @@
             <div class="form-group">
                 <label for="telefono">Teléfono / WhatsApp</label>
                 <input type="tel" id="telefono" name="telefono" placeholder="Ej. 600 123 456" required>
+            </div>
+
+            <div class="form-group">
+                <label>¿Cómo prefieres que te contacte?</label>
+                <div class="radio-group">
+                    
+                    <label class="radio-option">
+                        <input type="radio" name="preferencia_contacto" value="WhatsApp" checked>
+                        <span><i class="fab fa-whatsapp"></i> WhatsApp</span>
+                    </label>
+            
+                    <label class="radio-option">
+                        <input type="radio" name="preferencia_contacto" value="Telegram">
+                        <span><i class="fab fa-telegram-plane"></i> Telegram</span>
+                    </label>
+            
+                    <label class="radio-option">
+                        <input type="radio" name="preferencia_contacto" value="Email">
+                        <span><i class="fas fa-envelope"></i> Email</span>
+                    </label>
+            
+                    <label class="radio-option">
+                        <input type="radio" name="preferencia_contacto" value="Llamada">
+                        <span><i class="fas fa-phone-alt"></i> Llamada</span>
+                    </label>
+            
+                </div>
             </div>
 
             <div class="form-group">
