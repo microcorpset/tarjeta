@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* --- Mismos estilos base que tu index --- */
+        /* --- Estilos Generales --- */
         :root {
             --primary-blue: #3b82f6;
             --primary-blue-dark: #2563eb;
@@ -17,6 +17,7 @@
             --text-muted: #8b949e;
             --border-color: rgba(255, 255, 255, 0.1);
             --input-bg: #0d1117;
+            --error-red: #f85149;
         }
 
         body {
@@ -41,7 +42,7 @@
             padding: 2rem;
             border-radius: 18px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-            max-width: 450px; /* Un poco más ancho para el formulario */
+            max-width: 450px;
             width: 100%;
             border: 1px solid var(--border-color);
             position: relative;
@@ -55,6 +56,7 @@
         .form-group {
             margin-bottom: 15px;
             text-align: left;
+            position: relative;
         }
 
         label {
@@ -62,6 +64,13 @@
             margin-bottom: 5px;
             font-size: 0.9rem;
             color: var(--text-muted);
+            transition: color 0.3s;
+        }
+        
+        /* Indicador visual de campo requerido */
+        label.required::after {
+            content: " *";
+            color: var(--error-red);
         }
 
         input, select, textarea {
@@ -73,7 +82,7 @@
             color: var(--text-light);
             font-family: inherit;
             box-sizing: border-box;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
         }
 
         input:focus, select:focus, textarea:focus {
@@ -81,9 +90,58 @@
             border-color: var(--primary-blue);
         }
 
+        /* Efecto cuando un campo es obligatorio pero está vacío (opcional) */
+        input:invalid:not(:placeholder-shown) {
+            border-color: var(--error-red);
+        }
+
         textarea {
             resize: vertical;
             min-height: 100px;
+        }
+
+        /* --- Estilos para la preferencia de contacto --- */
+        .radio-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .radio-option:hover {
+            border-color: var(--primary-blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .radio-option.selected {
+            border-color: var(--primary-blue);
+            background: rgba(59, 130, 246, 0.15);
+        }
+
+        .radio-option input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+            accent-color: var(--primary-blue);
+        }
+
+        .radio-option span {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        @media (max-width: 400px) {
+            .radio-group { grid-template-columns: 1fr; }
         }
 
         .btn-submit {
@@ -113,45 +171,6 @@
             font-size: 0.9rem;
         }
         .back-link:hover { color: var(--text-light); }
-        /* --- Estilos para la preferencia de contacto --- */
-        .radio-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* 2 columnas */
-            gap: 10px;
-            margin-top: 5px;
-        }
-        
-        .radio-option {
-            display: flex;
-            align-items: center;
-            background: var(--input-bg);
-            border: 1px solid var(--border-color);
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .radio-option:hover {
-            border-color: var(--primary-blue);
-            background: rgba(59, 130, 246, 0.1);
-        }
-        
-        .radio-option input[type="radio"] {
-            width: auto; /* Resetea el ancho del 100% que tenían los inputs generales */
-            margin-right: 10px;
-            accent-color: var(--primary-blue); /* Pone el puntito azul */
-        }
-        
-        .radio-option span {
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-        
-        /* Ajuste para móvil: que se pongan en una sola columna si la pantalla es muy pequeña */
-        @media (max-width: 400px) {
-            .radio-group { grid-template-columns: 1fr; }
-        }
 
     </style>
 </head>
@@ -159,45 +178,54 @@
 
     <div class="card">
         <h2>Solicitud de Servicio</h2>
-        <p class="desc">Rellena tus datos y el tipo de asistencia que necesitas. Te contactaré a la brevedad.</p>
+        <p class="desc">Rellena tus datos y dime cómo prefieres que contacte contigo.</p>
 
-        <form action="https://formspree.io/f/xzdepolb" method="POST">
+        <!-- RECUERDA PONER TU URL DE FORMSPREE ABAJO -->
+        <form action="TU_URL_DE_FORMSPREE_AQUI" method="POST" id="contactForm">
             
             <div class="form-group">
-                <label for="nombre">Nombre completo</label>
+                <label for="nombre" class="required">Nombre completo</label>
                 <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
             </div>
 
-            <div class="form-group">
-                <label for="telefono">Teléfono / WhatsApp</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="Ej. 600 123 456" required>
-            </div>
-
+            <!-- Sección de Preferencia de Contacto -->
             <div class="form-group">
                 <label>¿Cómo prefieres que te contacte?</label>
                 <div class="radio-group">
                     
                     <label class="radio-option">
-                        <input type="radio" name="preferencia_contacto" value="WhatsApp" checked>
+                        <input type="radio" name="preferencia_contacto" value="WhatsApp" checked onchange="updateRequirements()">
                         <span><i class="fab fa-whatsapp"></i> WhatsApp</span>
                     </label>
-            
+
                     <label class="radio-option">
-                        <input type="radio" name="preferencia_contacto" value="Telegram">
+                        <input type="radio" name="preferencia_contacto" value="Telegram" onchange="updateRequirements()">
                         <span><i class="fab fa-telegram-plane"></i> Telegram</span>
                     </label>
-            
+
                     <label class="radio-option">
-                        <input type="radio" name="preferencia_contacto" value="Email">
-                        <span><i class="fas fa-envelope"></i> Email</span>
-                    </label>
-            
-                    <label class="radio-option">
-                        <input type="radio" name="preferencia_contacto" value="Llamada">
+                        <input type="radio" name="preferencia_contacto" value="Llamada" onchange="updateRequirements()">
                         <span><i class="fas fa-phone-alt"></i> Llamada</span>
                     </label>
-            
+
+                    <label class="radio-option">
+                        <input type="radio" name="preferencia_contacto" value="Email" onchange="updateRequirements()">
+                        <span><i class="fas fa-envelope"></i> Email</span>
+                    </label>
+
                 </div>
+            </div>
+
+            <!-- Campo Teléfono -->
+            <div class="form-group">
+                <label id="label-telefono" for="telefono" class="required">Teléfono Móvil</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Ej. 600 123 456" required>
+            </div>
+
+            <!-- Nuevo Campo Email -->
+            <div class="form-group">
+                <label id="label-email" for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" placeholder="nombre@ejemplo.com">
             </div>
 
             <div class="form-group">
@@ -211,13 +239,9 @@
             </div>
 
             <div class="form-group">
-                <label for="mensaje">Detalles del problema</label>
+                <label for="mensaje" class="required">Detalles</label>
                 <textarea id="mensaje" name="mensaje" placeholder="Describe brevemente qué necesitas..." required></textarea>
             </div>
-
-            <!-- Redirección después de enviar (Opcional, pero recomendado) -->
-            <!-- Si tienes Formspree Pro puedes usar esto, si es gratis te mostrará una página genérica de éxito -->
-            <!-- <input type="hidden" name="_next" value="https://tousuario.github.io/index.html"> -->
 
             <button type="submit" class="btn-submit">
                 <i class="fas fa-paper-plane"></i> Enviar Solicitud
@@ -228,6 +252,64 @@
             <i class="fas fa-arrow-left"></i> Volver al inicio
         </a>
     </div>
+
+    <script>
+        function updateRequirements() {
+            // Obtenemos los elementos
+            const radios = document.getElementsByName('preferencia_contacto');
+            const telefonoInput = document.getElementById('telefono');
+            const emailInput = document.getElementById('email');
+            const labelTelefono = document.getElementById('label-telefono');
+            const labelEmail = document.getElementById('label-email');
+            const radioOptions = document.querySelectorAll('.radio-option');
+
+            let selectedValue = 'WhatsApp'; // Valor por defecto
+
+            // Ver cuál está marcado
+            for (const radio of radios) {
+                if (radio.checked) {
+                    selectedValue = radio.value;
+                }
+            }
+
+            // Resaltar visualmente la opción seleccionada
+            radioOptions.forEach(opt => {
+                if(opt.querySelector('input').checked) {
+                    opt.classList.add('selected');
+                } else {
+                    opt.classList.remove('selected');
+                }
+            });
+
+            // Lógica de validación
+            if (selectedValue === 'Email') {
+                // Si elige Email: Email es OBLIGATORIO, Teléfono es OPCIONAL
+                emailInput.required = true;
+                labelEmail.classList.add('required'); // Pone el asterisco rojo
+                
+                telefonoInput.required = false;
+                labelTelefono.classList.remove('required'); // Quita el asterisco rojo
+
+                // Pequeño foco visual para ayudar al usuario
+                emailInput.placeholder = "Requerido para contactar por email";
+                telefonoInput.placeholder = "Opcional si prefieres email";
+
+            } else {
+                // Si elige WhatsApp, Telegram o Llamada: Teléfono OBLIGATORIO
+                telefonoInput.required = true;
+                labelTelefono.classList.add('required');
+
+                emailInput.required = false;
+                labelEmail.classList.remove('required');
+
+                telefonoInput.placeholder = "Requerido para WhatsApp/Llamada";
+                emailInput.placeholder = "Opcional (nombre@ejemplo.com)";
+            }
+        }
+
+        // Ejecutar al cargar la página para establecer el estado inicial
+        document.addEventListener('DOMContentLoaded', updateRequirements);
+    </script>
 
 </body>
 </html>
