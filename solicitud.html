@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #6366f1; /* Indigo */
+            --primary: #6366f1;
             --bg-dark: #050505;
             --glass-bg: rgba(20, 20, 25, 0.75);
             --border-light: rgba(255, 255, 255, 0.1);
@@ -66,125 +66,91 @@
         h2 { margin: 0; font-size: 1.8rem; background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         p.desc { color: var(--text-muted); font-size: 0.95rem; margin-top: 5px; }
 
-        /* Formulario */
         .form-group { margin-bottom: 20px; position: relative; }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-        
+        label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
         label.required::after { content: " *"; color: var(--error); }
 
-        /* Inputs estilizados */
         input, select, textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border-radius: 12px;
-            border: 1px solid var(--border-light);
-            background: rgba(0, 0, 0, 0.2);
-            color: white;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            width: 100%; padding: 14px 16px; border-radius: 12px;
+            border: 1px solid var(--border-light); background: rgba(0, 0, 0, 0.2);
+            color: white; font-family: inherit; font-size: 1rem; transition: all 0.3s ease;
         }
 
         input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: rgba(99, 102, 241, 0.1);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            outline: none; border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1); box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
         }
 
-        /* Radio Group Moderno (Grid) */
-        .radio-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .radio-card {
-            position: relative;
-            cursor: pointer;
-        }
-
+        /* Radio Group */
+        .radio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .radio-card { position: relative; cursor: pointer; }
         .radio-card input { position: absolute; opacity: 0; width: 0; height: 0; }
-
         .radio-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-light);
-            border-radius: 12px;
-            transition: all 0.2s;
-            font-size: 0.9rem;
-            color: var(--text-muted);
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px; background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-light); border-radius: 12px;
+            transition: all 0.2s; font-size: 0.9rem; color: var(--text-muted);
         }
-
         .radio-card input:checked + .radio-content {
-            background: rgba(99, 102, 241, 0.2);
-            border-color: var(--primary);
-            color: white;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+            background: rgba(99, 102, 241, 0.2); border-color: var(--primary);
+            color: white; font-weight: 600; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
         }
 
-        .radio-card:hover .radio-content { background: rgba(255,255,255,0.08); }
-
-        /* Botón Enviar con estados */
         .btn-submit {
-            width: 100%;
-            padding: 16px;
+            width: 100%; padding: 16px;
             background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            color: white;
-            border: none;
-            border-radius: 14px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+            color: white; border: none; border-radius: 14px;
+            font-weight: 600; font-size: 1.1rem; cursor: pointer; margin-top: 15px;
+            transition: all 0.3s; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
             display: flex; justify-content: center; align-items: center; gap: 10px;
         }
-
         .btn-submit:active { transform: scale(0.98); }
         .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
-        
-        /* Estado de éxito */
-        .btn-success {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4) !important;
-        }
 
         .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 25px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            padding: 10px;
-            opacity: 0.7;
-            transition: opacity 0.3s;
+            display: block; text-align: center; margin-top: 25px;
+            color: var(--text-muted); text-decoration: none; font-size: 0.9rem;
+            padding: 10px; opacity: 0.7; transition: opacity 0.3s;
         }
         .back-link:hover { opacity: 1; color: white; }
 
-        .highlight-req {
-            animation: shake 0.5s ease-in-out;
-            border-color: var(--error);
+        .highlight-req { animation: shake 0.5s ease-in-out; border-color: var(--error); }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+        /* --- MODAL DE ÉXITO --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
+            z-index: 9999; display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: all 0.4s ease;
         }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+
+        .modal-content {
+            background: #161b22; border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px 30px; border-radius: 24px; max-width: 350px; width: 90%;
+            text-align: center; transform: scale(0.8);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
         }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+
+        .success-icon {
+            font-size: 4rem; color: var(--success); margin-bottom: 20px;
+            display: inline-block; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+        .modal-title { font-size: 1.6rem; color: white; margin: 0 0 10px 0; font-weight: 700; }
+        .modal-text { color: var(--text-muted); margin-bottom: 30px; line-height: 1.5; font-size: 1rem; }
+
+        .btn-modal-close {
+            width: 100%; padding: 14px; background: var(--primary);
+            color: white; border: none; border-radius: 12px; font-weight: 600;
+            font-size: 1rem; cursor: pointer; transition: background 0.2s;
+        }
+        .btn-modal-close:hover { background: #4f46e5; }
 
     </style>
 </head>
@@ -265,8 +231,20 @@
         </div>
     </div>
 
+    <!-- MODAL DE ÉXITO -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="modal-title">¡Solicitud Enviada!</h2>
+            <p class="modal-text">He recibido tus datos correctamente. Me pondré en contacto contigo lo antes posible.</p>
+            <button id="btnSuccessRedirect" class="btn-modal-close">Entendido, volver al inicio</button>
+        </div>
+    </div>
+
     <script>
-        // 1. Lógica de requisitos (WhatsApp vs Email)
+        // 1. Lógica de requisitos
         function updateRequirements() {
             const radios = document.getElementsByName('preferencia_contacto');
             const telefonoInput = document.getElementById('telefono');
@@ -277,7 +255,6 @@
             let selectedValue = 'WhatsApp';
             for (const radio of radios) if (radio.checked) selectedValue = radio.value;
 
-            // Limpiar errores visuales previos
             telefonoInput.classList.remove('highlight-req');
             emailInput.classList.remove('highlight-req');
 
@@ -286,85 +263,76 @@
                 labelEmail.textContent = "Email (Requerido)";
                 labelEmail.classList.add('required');
                 emailInput.placeholder = "Necesario para responderte";
-                
                 telefonoInput.required = false;
                 labelTelefono.textContent = "Teléfono Móvil (Opcional)";
                 labelTelefono.classList.remove('required');
-                
             } else {
                 telefonoInput.required = true;
                 labelTelefono.textContent = "Teléfono Móvil";
                 labelTelefono.classList.add('required');
                 telefonoInput.placeholder = "Necesario para contactar";
-
                 emailInput.required = false;
                 labelEmail.textContent = "Email (Opcional)";
                 labelEmail.classList.remove('required');
             }
         }
 
-        // 2. Lógica de ENVÍO AJAX (Reset y Redirección)
+        // 2. Lógica de ENVÍO y MODAL
         const form = document.getElementById('contactForm');
         const btnSubmit = document.getElementById('btnSubmit');
+        const successModal = document.getElementById('successModal');
+        const btnSuccessRedirect = document.getElementById('btnSuccessRedirect');
 
         form.addEventListener('submit', async function(e) {
-            e.preventDefault(); // EVITA que la página se recargue o vaya a Formspree
+            e.preventDefault();
 
-            // Guardar texto original
             const originalContent = btnSubmit.innerHTML;
-
-            // Cambiar botón a estado "Enviando"
             btnSubmit.disabled = true;
             btnSubmit.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Enviando...';
 
             const data = new FormData(form);
 
             try {
-                // Enviar datos en segundo plano
                 const response = await fetch(form.action, {
                     method: 'POST',
                     body: data,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
+                    headers: { 'Accept': 'application/json' }
                 });
 
                 if (response.ok) {
                     // --- ÉXITO ---
-                    // 1. Cambiar botón a verde
-                    btnSubmit.classList.add('btn-success');
-                    btnSubmit.innerHTML = '<i class="fas fa-check"></i> ¡Enviado Correctamente!';
-                    
-                    // 2. BORRAR el formulario para que no queden datos si vuelve atrás
+                    // 1. Restaurar botón (por si acaso)
+                    btnSubmit.innerHTML = originalContent;
+                    btnSubmit.disabled = false;
+
+                    // 2. BORRAR DATOS INMEDIATAMENTE
                     form.reset(); 
                     
-                    // 3. Redirigir al inicio después de 2 segundos
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 2000);
+                    // 3. MOSTRAR MODAL
+                    successModal.classList.add('active');
 
                 } else {
-                    // Error del servidor
                     throw new Error('Error en el envío');
                 }
             } catch (error) {
                 // --- ERROR ---
-                btnSubmit.style.background = '#f43f5e'; // Rojo
+                btnSubmit.style.background = '#f43f5e';
                 btnSubmit.innerHTML = '<i class="fas fa-times"></i> Error al enviar';
-                
-                // Restaurar botón después de 3 segundos
                 setTimeout(() => {
-                    btnSubmit.style.background = ''; // Volver al original
+                    btnSubmit.style.background = '';
                     btnSubmit.innerHTML = originalContent;
                     btnSubmit.disabled = false;
                 }, 3000);
             }
         });
+
+        // 3. REDIRECCIÓN AL PULSAR EL BOTÓN DEL MODAL
+        btnSuccessRedirect.addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
         
-        // Ejecutar al inicio
         document.addEventListener('DOMContentLoaded', () => {
             updateRequirements();
-            // Bloqueo clic derecho
             document.addEventListener('contextmenu', e => e.preventDefault());
         });
     </script>
