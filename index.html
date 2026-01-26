@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Contacto | Jon Glez.</title>
-    <!-- Fuente Outfit para textos y JetBrains Mono (o monospace) para el logo de código -->
+    <!-- Fuentes: Outfit para textos y JetBrains Mono para el logo de código -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -40,6 +40,7 @@
             margin: 0;
             padding: 20px;
             overflow-x: hidden;
+            user-select: none; /* Evita selección de texto */
         }
 
         @keyframes fadeInUp {
@@ -78,19 +79,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Estilos específicos para el símbolo </> */
             font-family: 'JetBrains Mono', monospace; 
-            font-size: 1.8rem; /* Tamaño ajustado para que quepan los 3 caracteres */
+            font-size: 1.8rem;
             font-weight: 700;
             color: #fff;
             position: relative;
             z-index: 2;
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
             border: 3px solid rgba(255,255,255,0.1);
-            letter-spacing: -2px; /* Juntamos un poco los caracteres */
+            letter-spacing: -2px;
         }
 
-        /* Efecto de pulso detrás */
         .profile-wrapper::before {
             content: '';
             position: absolute;
@@ -157,7 +156,6 @@
 
         .btn:active { transform: scale(0.97); }
 
-        /* Estilos de botones */
         .request {
             background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
             color: white;
@@ -168,25 +166,14 @@
         }
         .request:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(124, 58, 237, 0.5); }
 
-        /* Contenedor Grid para chats */
         .chat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
         }
 
-        .whatsapp {
-            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
-            color: white;
-            border: none;
-        }
-        
-        .telegram {
-            background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%);
-            color: white;
-            border: none;
-        }
-
+        .whatsapp { background: linear-gradient(135deg, #25d366 0%, #128c7e 100%); color: white; border: none; }
+        .telegram { background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%); color: white; border: none; }
         .whatsapp:hover, .telegram:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
         .phone {
@@ -200,7 +187,7 @@
             background: transparent;
             color: var(--text-sec);
             border: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.9rem; /* Letra un pelín más pequeña para que quepa bien "Guardar Contacto" */
+            font-size: 0.9rem;
         }
         .email:hover, .vcf:hover { color: white; background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); }
 
@@ -253,14 +240,12 @@
             background: none; border: none; color: #666; 
             font-size: 1.5rem; cursor: pointer; padding: 5px;
         }
-
     </style>
 </head>
 <body>
 
     <div class="card">
         <div class="profile-wrapper">
-            <!-- AQUÍ ESTÁ EL CAMBIO DEL AVATAR -->
             <div class="profile-img">&lt;/&gt;</div>
         </div>
         
@@ -268,35 +253,31 @@
         <p class="role">Programador & Servicios Informáticos</p>
 
         <div class="links">
-            <!-- Botón Principal -->
             <a href="solicitud.html" class="btn request">
                 <span class="icon"><i class="fas fa-bolt"></i></span> Solicitar Servicio
             </a>
             
-            <!-- Grid para Mensajería -->
             <div class="chat-grid">
-                <!-- WhatsApp -->
+                <!-- WhatsApp con ID para modal -->
                 <a href="https://wa.me/34684003699" id="btn-whatsapp" class="btn whatsapp" data-action-target="https://wa.me/34684003699">
                     <span class="icon"><i class="fab fa-whatsapp"></i></span> WhatsApp
                 </a>
-
-                <!-- Telegram (RECUERDA PONER TU USUARIO) -->
+                
+                <!-- Telegram (Pon tu usuario aquí abajo) -->
                 <a href="https://t.me/TU_USUARIO" class="btn telegram">
                     <span class="icon"><i class="fab fa-telegram-plane"></i></span> Telegram
                 </a>
             </div>
 
-            <!-- Llamada -->
+            <!-- Llamada con ID para modal -->
             <a href="tel:+34684003699" id="btn-phone" class="btn phone" data-action-target="tel:+34684003699">
                 <span class="icon"><i class="fas fa-phone"></i></span> Llamada Telefónica
             </a>
 
-            <!-- Utilidades secundarias -->
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                 <a href="mailto:jongt23@gmail.com" class="btn email">
                     <span class="icon"><i class="fas fa-envelope"></i></span> Email
                 </a>
-                <!-- AQUÍ ESTÁ EL CAMBIO DEL TEXTO Y EL ICONO -->
                 <a href="Jon.vcf" class="btn vcf">
                     <span class="icon"><i class="fas fa-user-plus"></i></span> Guardar Contacto
                 </a>
@@ -321,7 +302,50 @@
     </div>
 
     <script>
-        <script src="app.js"></script>
-    </script>
-</body>
-</html>
+        // CONFIGURACIÓN DEL MENSAJE
+        const messageText = "Nuestro horario habitual es:\n\n📅 Lunes a Viernes\n🕘 9:00 - 18:00\n\nFuera de este horario, la respuesta podría demorar un poco. ¿Deseas continuar?";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Referencias directas por ID (Lo que funcionaba antes)
+            const btnWhatsapp = document.getElementById('btn-whatsapp');
+            const btnPhone = document.getElementById('btn-phone');
+            
+            const modalOverlay = document.getElementById('actionModal');
+            const modalMessageElement = document.getElementById('modalMessage');
+            const modalConfirm = document.getElementById('modalConfirm');
+            const modalCancel = document.getElementById('modalCancel');
+            const closeModal = modalOverlay.querySelector('.close-modal');
+
+            let currentActionUrl = '';
+
+            function openModal(event, url) {
+                event.preventDefault(); // Detiene el click
+                currentActionUrl = url;
+                modalMessageElement.textContent = messageText;
+                modalOverlay.classList.add('active');
+            }
+
+            function hideModal() {
+                modalOverlay.classList.remove('active');
+                setTimeout(() => { currentActionUrl = ''; }, 300);
+            }
+
+            // Asignación de eventos: Simple y Directa
+            if (btnWhatsapp) {
+                btnWhatsapp.addEventListener('click', function(e) {
+                    openModal(e, this.getAttribute('data-action-target'));
+                });
+            }
+
+            if (btnPhone) {
+                btnPhone.addEventListener('click', function(e) {
+                    openModal(e, this.getAttribute('data-action-target'));
+                });
+            }
+
+            modalConfirm.addEventListener('click', () => {
+                if (currentActionUrl) window.location.href = currentActionUrl;
+                hideModal();
+            });
+
+            modalCancel.
