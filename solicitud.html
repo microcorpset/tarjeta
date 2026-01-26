@@ -33,10 +33,11 @@
             color: var(--text-main);
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Mejor para formularios largos en móvil */
+            align-items: flex-start;
             min-height: 100vh;
             margin: 0;
             padding: 20px 15px;
+            user-select: none;
         }
 
         .container {
@@ -136,7 +137,7 @@
 
         .radio-card:hover .radio-content { background: rgba(255,255,255,0.08); }
 
-        /* Botón Enviar */
+        /* Botón Enviar con estados */
         .btn-submit {
             width: 100%;
             padding: 16px;
@@ -148,12 +149,20 @@
             font-size: 1.1rem;
             cursor: pointer;
             margin-top: 15px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s;
             box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+            display: flex; justify-content: center; align-items: center; gap: 10px;
         }
 
         .btn-submit:active { transform: scale(0.98); }
+        .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
         
+        /* Estado de éxito */
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4) !important;
+        }
+
         .back-link {
             display: block;
             text-align: center;
@@ -167,9 +176,6 @@
         }
         .back-link:hover { opacity: 1; color: white; }
 
-        /* Animación suave para inputs requeridos dinámicos */
-        input::placeholder { color: rgba(255,255,255,0.2); }
-        
         .highlight-req {
             animation: shake 0.5s ease-in-out;
             border-color: var(--error);
@@ -248,8 +254,8 @@
                     <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntame brevemente el problema..." required></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit">
-                    Enviar Solicitud <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                <button type="submit" id="btnSubmit" class="btn-submit">
+                    <span>Enviar Solicitud</span> <i class="fas fa-paper-plane"></i>
                 </button>
             </form>
 
@@ -260,6 +266,7 @@
     </div>
 
     <script>
+        // 1. Lógica de requisitos (WhatsApp vs Email)
         function updateRequirements() {
             const radios = document.getElementsByName('preferencia_contacto');
             const telefonoInput = document.getElementById('telefono');
@@ -270,7 +277,7 @@
             let selectedValue = 'WhatsApp';
             for (const radio of radios) if (radio.checked) selectedValue = radio.value;
 
-            // Reiniciar clases y placeholders
+            // Limpiar errores visuales previos
             telefonoInput.classList.remove('highlight-req');
             emailInput.classList.remove('highlight-req');
 
@@ -295,8 +302,71 @@
                 labelEmail.classList.remove('required');
             }
         }
+
+        // 2. Lógica de ENVÍO AJAX (Reset y Redirección)
+        const form = document.getElementById('contactForm');
+        const btnSubmit = document.getElementById('btnSubmit');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault(); // EVITA que la página se recargue o vaya a Formspree
+
+            // Guardar texto original
+            const originalContent = btnSubmit.innerHTML;
+
+            // Cambiar botón a estado "Enviando"
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Enviando...';
+
+            const data = new FormData(form);
+
+            try {
+                // Enviar datos en segundo plano
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // --- ÉXITO ---
+                    // 1. Cambiar botón a verde
+                    btnSubmit.classList.add('btn-success');
+                    btnSubmit.innerHTML = '<i class="fas fa-check"></i> ¡Enviado Correctamente!';
+                    
+                    // 2. BORRAR el formulario para que no queden datos si vuelve atrás
+                    form.reset(); 
+                    
+                    // 3. Redirigir al inicio después de 2 segundos
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+
+                } else {
+                    // Error del servidor
+                    throw new Error('Error en el envío');
+                }
+            } catch (error) {
+                // --- ERROR ---
+                btnSubmit.style.background = '#f43f5e'; // Rojo
+                btnSubmit.innerHTML = '<i class="fas fa-times"></i> Error al enviar';
+                
+                // Restaurar botón después de 3 segundos
+                setTimeout(() => {
+                    btnSubmit.style.background = ''; // Volver al original
+                    btnSubmit.innerHTML = originalContent;
+                    btnSubmit.disabled = false;
+                }, 3000);
+            }
+        });
         
-        document.addEventListener('DOMContentLoaded', updateRequirements);
+        // Ejecutar al inicio
+        document.addEventListener('DOMContentLoaded', () => {
+            updateRequirements();
+            // Bloqueo clic derecho
+            document.addEventListener('contextmenu', e => e.preventDefault());
+        });
     </script>
 </body>
 </html>
