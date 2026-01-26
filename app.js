@@ -1,1 +1,65 @@
-var _0x3a1b=["\x61\x63\x74\x69\x6F\x6E\x4D\x6F\x64\x61\x6C","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x6D\x6F\x64\x61\x6C\x4D\x65\x73\x73\x61\x67\x65","\x6D\x6F\x64\x61\x6C\x43\x6F\x6E\x66\x69\x72\x6D","\x6D\x6F\x64\x61\x6C\x43\x61\x6E\x63\x65\x6C","\x2E\x63\x6C\x6F\x73\x65\x2D\x6D\x6F\x64\x61\x6C","\x71\x75\x65\x72\x79\x53\x65\x6C\x65\x63\x74\x6F\x72","\x4E\x75\x65\x73\x74\x72\x6F\x20\x68\x6F\x72\x61\x72\x69\x6F\x20\x68\x61\x62\x69\x74\x75\x61\x6C\x20\x65\x73\x3A\x0A\x0A\xF0\x9F\x93\x85\x20\x4C\x75\x6E\x65\x73\x20\x61\x20\x56\x69\x65\x72\x6E\x65\x73\x0A\xF0\x9F\x95\x98\x20\x39\x3A\x30\x30\x20\x2D\x20\x31\x38\x3A\x30\x30\x0A\x0A\x46\x75\x65\x72\x61\x20\x64\x65\x20\x65\x73\x74\x65\x20\x68\x6F\x72\x61\x72\x69\x6F\x2C\x20\x6C\x61\x20\x72\x65\x73\x70\x75\x65\x73\x74\x61\x20\x70\x6F\x64\x72\xC3\xAD\x61\x20\x64\x65\x6D\x6F\x72\x61\x72\x2E\x20\xC2\xBF\x44\x65\x73\x65\x61\x73\x20\x63\x6F\x6E\x74\x69\x6E\x75\x61\x72\x3F","\x70\x72\x65\x76\x65\x6E\x74\x44\x65\x66\x61\x75\x6C\x74","\x74\x65\x78\x74\x43\x6F\x6E\x74\x65\x6E\x74","\x61\x63\x74\x69\x76\x65","\x63\x6C\x61\x73\x73\x4C\x69\x73\x74","\x61\x64\x64","\x72\x65\x6D\x6F\x76\x65","\x62\x74\x6E\x2D\x77\x68\x61\x74\x73\x61\x70\x70","\x2E\x77\x68\x61\x74\x73\x61\x70\x70","\x62\x74\x6E\x2D\x70\x68\x6F\x6E\x65","\x2E\x70\x68\x6F\x6E\x65","\x64\x61\x74\x61\x2D\x61\x63\x74\x69\x6F\x6E\x2D\x74\x61\x72\x67\x65\x74","\x67\x65\x74\x41\x74\x74\x72\x69\x62\x75\x74\x65","\x68\x72\x65\x66","\x63\x6C\x69\x63\x6B","\x61\x64\x64\x45\x76\x65\x6E\x74\x4C\x69\x73\x74\x65\x6E\x65\x72","\x6C\x6F\x63\x61\x74\x69\x6F\x6E","\x74\x61\x72\x67\x65\x74","\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75","\x6B\x65\x79\x43\x6F\x64\x65","\x63\x74\x72\x6C\x4B\x65\x79","\x73\x68\x69\x66\x74\x4B\x65\x79","\x6F\x6E\x6B\x65\x79\x64\x6F\x77\x6E","\x44\x4F\x4D\x43\x6F\x6E\x74\x65\x6E\x74\x4C\x6F\x61\x64\x65\x64"];document[_0x3a1b[30]](_0x3a1b[30],function(){var _0x1c88x1=document[_0x3a1b[1]](_0x3a1b[0]);var _0x1c88x2=document[_0x3a1b[1]](_0x3a1b[2]);var _0x1c88x3=document[_0x3a1b[1]](_0x3a1b[3]);var _0x1c88x4=document[_0x3a1b[1]](_0x3a1b[4]);var _0x1c88x5=document[_0x3a1b[6]](_0x3a1b[5]);var _0x1c88x6=_0x3a1b[7];var _0x1c88x7='';var _0x1c88x8=function(_0x1c88x9,_0x1c88xa){if(!_0x1c88xa){return};_0x1c88x9[_0x3a1b[8]]();_0x1c88x7=_0x1c88xa;_0x1c88x2[_0x3a1b[9]]=_0x1c88x6;_0x1c88x1[_0x3a1b[11]][_0x3a1b[12]](_0x3a1b[10])};var _0x1c88xb=function(){_0x1c88x1[_0x3a1b[11]][_0x3a1b[13]](_0x3a1b[10]);setTimeout(function(){_0x1c88x7=''},300)};var _0x1c88xc=document[_0x3a1b[1]](_0x3a1b[14])|| document[_0x3a1b[6]](_0x3a1b[15]);var _0x1c88xd=document[_0x3a1b[1]](_0x3a1b[16])|| document[_0x3a1b[6]](_0x3a1b[17]);if(_0x1c88xc){var _0x1c88xe=_0x1c88xc[_0x3a1b[19]](_0x3a1b[18])|| _0x1c88xc[_0x3a1b[20]];_0x1c88xc[_0x3a1b[22]](_0x3a1b[21],function(_0x1c88x9){_0x1c88x8(_0x1c88x9,_0x1c88xe)})}if(_0x1c88xd){var _0x1c88xe=_0x1c88xd[_0x3a1b[19]](_0x3a1b[18])|| _0x1c88xd[_0x3a1b[20]];_0x1c88xd[_0x3a1b[22]](_0x3a1b[21],function(_0x1c88x9){_0x1c88x8(_0x1c88x9,_0x1c88xe)})}if(_0x1c88x3){_0x1c88x3[_0x3a1b[22]](_0x3a1b[21],function(){if(_0x1c88x7){window[_0x3a1b[23]][_0x3a1b[20]]=_0x1c88x7}_0x1c88xb()})}if(_0x1c88x4){_0x1c88x4[_0x3a1b[22]](_0x3a1b[21],_0x1c88xb)}if(_0x1c88x5){_0x1c88x5[_0x3a1b[22]](_0x3a1b[21],_0x1c88xb)}if(_0x1c88x1){_0x1c88x1[_0x3a1b[22]](_0x3a1b[21],function(_0x1c88x9){if(_0x1c88x9[_0x3a1b[24]]=== _0x1c88x1){_0x1c88xb()}})}document[_0x3a1b[22]](_0x3a1b[25],function(_0x1c88x9){_0x1c88x9[_0x3a1b[8]]()});document[_0x3a1b[29]]=function(_0x1c88x9){if(_0x1c88x9[_0x3a1b[26]]== 123){return false}if(_0x1c88x9[_0x3a1b[27]]&& _0x1c88x9[_0x3a1b[28]]&& (_0x1c88x9[_0x3a1b[26]]== 73|| _0x1c88x9[_0x3a1b[26]]== 74|| _0x1c88x9[_0x3a1b[26]]== 67)){return false}if(_0x1c88x9[_0x3a1b[27]]&& _0x1c88x9[_0x3a1b[26]]== 85){return false}}})
+/* app.js - Lógica Inteligente */
+document.addEventListener('DOMContentLoaded', () => {
+    // Referencias al Modal
+    const modal = document.getElementById('actionModal');
+    const msgElement = document.getElementById('modalMessage');
+    const btnConfirm = document.getElementById('modalConfirm');
+    const btnCancel = document.getElementById('modalCancel');
+    const btnClose = document.querySelector('.close-modal');
+    
+    // Mensaje de horario
+    const horarioTxt = "Nuestro horario habitual es:\n\n📅 Lunes a Viernes\n🕘 9:00 - 18:00\n\nFuera de este horario, la respuesta podría demorar. ¿Deseas continuar?";
+    
+    let targetUrl = '';
+
+    // Función para abrir el modal
+    const openModal = (e, link) => {
+        if (!link) return; // Si no hay link, no hace nada
+        e.preventDefault(); // IMPORTANTE: Evita que el enlace se abra directo
+        targetUrl = link;
+        msgElement.textContent = horarioTxt;
+        modal.classList.add('active');
+    };
+
+    // Función para cerrar
+    const closeModal = () => {
+        modal.classList.remove('active');
+        setTimeout(() => targetUrl = '', 300);
+    };
+
+    // --- LÓGICA MEJORADA: Busca por ID o por Clase ---
+    const whatsappBtn = document.getElementById('btn-whatsapp') || document.querySelector('.whatsapp');
+    const phoneBtn = document.getElementById('btn-phone') || document.querySelector('.phone');
+
+    // Asignar eventos con seguridad
+    if (whatsappBtn) {
+        // Usa data-action-target si existe, si no usa el href
+        const link = whatsappBtn.getAttribute('data-action-target') || whatsappBtn.href;
+        whatsappBtn.addEventListener('click', (e) => openModal(e, link));
+    }
+
+    if (phoneBtn) {
+        const link = phoneBtn.getAttribute('data-action-target') || phoneBtn.href;
+        phoneBtn.addEventListener('click', (e) => openModal(e, link));
+    }
+
+    // Eventos del Modal
+    if(btnConfirm) {
+        btnConfirm.addEventListener('click', () => {
+            if(targetUrl) window.location.href = targetUrl;
+            closeModal();
+        });
+    }
+
+    if(btnCancel) btnCancel.addEventListener('click', closeModal);
+    if(btnClose) btnClose.addEventListener('click', closeModal);
+    if(modal) modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+
+    // --- BLOQUEOS DE SEGURIDAD (Anti-Click Derecho) ---
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = function(e) {
+        if(e.keyCode == 123) return false;
+        if(e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) return false;
+        if(e.ctrlKey && e.keyCode == 85) return false;
+    }
+});
