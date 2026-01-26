@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- ESTILOS VISUALES (GLASSMORPHISM) --- */
+        /* --- ESTILOS VISUALES --- */
         :root {
             --primary: #3b82f6;
             --bg-dark: #050505;
@@ -16,6 +16,7 @@
             --glass-bg: rgba(20, 20, 25, 0.65);
             --glass-border: rgba(255, 255, 255, 0.08);
             --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --promo-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); /* Color Ámbar para aviso */
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -41,7 +42,6 @@
             user-select: none;
         }
 
-        /* Animación de entrada */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -71,44 +71,57 @@
         }
 
         .profile-img {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             background: linear-gradient(135deg, #2563eb, #7c3aed);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'JetBrains Mono', monospace; 
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #fff;
-            position: relative;
-            z-index: 2;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; font-weight: 700;
+            color: #fff; position: relative; z-index: 2;
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-            border: 3px solid rgba(255,255,255,0.1);
-            letter-spacing: -2px;
+            border: 3px solid rgba(255,255,255,0.1); letter-spacing: -2px;
         }
 
         .profile-wrapper::before {
-            content: '';
-            position: absolute;
-            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px;
             background: linear-gradient(135deg, var(--primary), #8b5cf6);
-            border-radius: 50%;
-            z-index: 1;
-            opacity: 0.4;
-            filter: blur(10px);
+            border-radius: 50%; z-index: 1; opacity: 0.4; filter: blur(10px);
             animation: pulse 3s infinite;
         }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.4; }
-            50% { transform: scale(1.1); opacity: 0.2; }
-            100% { transform: scale(0.95); opacity: 0.4; }
-        }
+        @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.4; } 50% { transform: scale(1.1); opacity: 0.2; } 100% { transform: scale(0.95); opacity: 0.4; } }
 
         h1 { font-size: 1.8rem; margin: 0; font-weight: 700; color: white; }
-        .role { color: var(--text-sec); margin: 0.4rem 0 2rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .role { color: var(--text-sec); margin: 0.4rem 0 1.5rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* --- NUEVA SECCIÓN: BANNER DE ANUNCIO --- */
+        .promo-banner {
+            display: none; /* Oculto por defecto, JS lo activa */
+            background: rgba(245, 158, 11, 0.1); /* Fondo naranja muy sutil */
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+            position: relative;
+            animation: slideDown 0.5s ease-out;
+        }
+        
+        .promo-banner.visible { display: block; }
+
+        .promo-header {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 5px; color: #fbbf24; font-weight: 700; font-size: 0.95rem;
+        }
+        
+        .promo-text { font-size: 0.85rem; color: #e2e8f0; line-height: 1.4; margin: 0; }
+        
+        .promo-close {
+            position: absolute; top: 10px; right: 10px;
+            background: none; border: none; color: var(--text-sec);
+            cursor: pointer; padding: 5px; font-size: 0.9rem;
+        }
+        .promo-close:hover { color: white; }
+
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        /* ---------------------------------------- */
 
         .links { display: flex; flex-direction: column; gap: 12px; }
 
@@ -116,10 +129,8 @@
             display: flex; align-items: center; justify-content: center;
             padding: 15px 20px; border-radius: 14px;
             text-decoration: none; font-weight: 500; font-size: 1rem;
-            transition: all 0.2s;
-            border: 1px solid rgba(255,255,255,0.05);
-            position: relative; backdrop-filter: blur(4px);
-            cursor: pointer; /* Importante para PC */
+            transition: all 0.2s; border: 1px solid rgba(255,255,255,0.05);
+            position: relative; backdrop-filter: blur(4px); cursor: pointer;
         }
         .btn .icon { margin-right: 10px; font-size: 1.1rem; min-width: 20px; text-align: center; }
         .btn:active { transform: scale(0.97); }
@@ -132,7 +143,6 @@
 
         .chat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-        /* Clases específicas que usará el JS */
         .whatsapp { background: linear-gradient(135deg, #25d366 0%, #128c7e 100%); color: white; border: none; }
         .telegram { background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%); color: white; border: none; }
         .whatsapp:hover, .telegram:hover { transform: translateY(-2px); filter: brightness(1.1); }
@@ -143,47 +153,27 @@
         .email, .vcf { background: transparent; color: var(--text-sec); border: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
         .email:hover, .vcf:hover { color: white; background: rgba(255,255,255,0.05); }
 
-        /* --- MODAL (Overlay y Ventana) --- */
+        /* Modal Styles */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 9999; /* Asegura que esté encima de todo */
-            opacity: 0; visibility: hidden; pointer-events: none;
-            transition: all 0.3s ease;
-            display: flex; justify-content: center; align-items: center;
-            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
+            z-index: 9999; opacity: 0; visibility: hidden; pointer-events: none;
+            transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; padding: 20px;
         }
-        
-        /* Clase que activa el modal */
-        .modal-overlay.active { 
-            opacity: 1; 
-            visibility: visible; 
-            pointer-events: all;
-        }
-
+        .modal-overlay.active { opacity: 1; visibility: visible; pointer-events: all; }
         .modal-content {
-            background: #161b22;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 30px; border-radius: 24px;
-            max-width: 350px; width: 100%;
-            text-align: center;
-            transform: scale(0.9);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: #161b22; border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px; border-radius: 24px; max-width: 350px; width: 100%;
+            text-align: center; transform: scale(0.9); transition: all 0.3s ease;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
         }
         .modal-overlay.active .modal-content { transform: scale(1); }
-
         .modal-title { color: white; margin-bottom: 10px; font-size: 1.4rem; font-weight: 700; }
         .modal-message { color: var(--text-sec); margin-bottom: 25px; line-height: 1.6; font-size: 0.95rem; white-space: pre-wrap; }
-
         .modal-buttons { display: flex; gap: 10px; }
-        .modal-btn { padding: 14px 20px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; flex: 1; font-size: 0.95rem; transition: background 0.2s; }
+        .modal-btn { padding: 14px 20px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; flex: 1; font-size: 0.95rem; }
         .confirm { background: var(--primary); color: white; }
-        .confirm:hover { background: #2563eb; }
         .cancel { background: rgba(255,255,255,0.1); color: white; }
-        .cancel:hover { background: rgba(255,255,255,0.15); }
-        
         .close-modal { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #666; font-size: 1.5rem; cursor: pointer; }
     </style>
 </head>
@@ -197,26 +187,33 @@
         <h1>Jon Glez.</h1>
         <p class="role">Programador & Servicios Informáticos</p>
 
+        <!-- AQUI VA EL BANNER DE ANUNCIO (Controlado por JS) -->
+        <div id="promoBanner" class="promo-banner">
+            <button class="promo-close" id="closePromo">&times;</button>
+            <div class="promo-header">
+                <i class="fas fa-truck-fast"></i> Servicio a Domicilio
+            </div>
+            <p class="promo-text">
+                Recogida, formateo y limpieza con entrega en <strong>menos de 48h</strong>. ¡Sin moverte de casa!
+            </p>
+        </div>
+        <!-- FIN DEL BANNER -->
+
         <div class="links">
             <a href="solicitud.html" class="btn request">
                 <span class="icon"><i class="fas fa-bolt"></i></span> Solicitar Servicio
             </a>
             
             <div class="chat-grid">
-                <!-- BOTÓN WHATSAPP -->
-                <!-- Nota: Usamos la clase 'whatsapp-trigger' para identificarlo en JS -->
                 <a href="https://wa.me/34684003699" class="btn whatsapp whatsapp-trigger" data-action-target="https://wa.me/34684003699">
                     <span class="icon"><i class="fab fa-whatsapp"></i></span> WhatsApp
                 </a>
                 
-                <!-- BOTÓN TELEGRAM -->
                 <a href="https://t.me/TU_USUARIO" class="btn telegram">
                     <span class="icon"><i class="fab fa-telegram-plane"></i></span> Telegram
                 </a>
             </div>
 
-            <!-- BOTÓN LLAMADA -->
-            <!-- Nota: Usamos la clase 'phone-trigger' para identificarlo en JS -->
             <a href="tel:+34684003699" class="btn phone phone-trigger" data-action-target="tel:+34684003699">
                 <span class="icon"><i class="fas fa-phone"></i></span> Llamada Telefónica
             </a>
@@ -232,7 +229,7 @@
         </div>
     </div>
 
-    <!-- MODAL DE AVISO DE HORARIO -->
+    <!-- Modal de Horario -->
     <div id="actionModal" class="modal-overlay">
         <div class="modal-content">
             <button class="close-modal">&times;</button>
@@ -250,27 +247,39 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. Configuración
+            
+            // --- CONFIGURACIÓN DEL ANUNCIO (Edita esto) ---
+            const MOSTRAR_ANUNCIO = true; // Pon 'false' para desactivarlo
+            // ---------------------------------------------
+
+            // Lógica del Anuncio
+            const promoBanner = document.getElementById('promoBanner');
+            const closePromo = document.getElementById('closePromo');
+
+            if (MOSTRAR_ANUNCIO && promoBanner) {
+                // Verificar si el usuario lo cerró recientemente (opcional, por ahora siempre sale si MOSTRAR_ANUNCIO es true)
+                promoBanner.classList.add('visible');
+            }
+
+            if (closePromo) {
+                closePromo.addEventListener('click', () => {
+                    promoBanner.style.display = 'none';
+                });
+            }
+
+            // --- Lógica del Modal de Horario (Sin cambios) ---
             const horarioTxt = "Nuestro horario habitual es:\n\n📅 Lunes a Viernes\n🕘 9:00 - 18:00\n\nFuera de este horario, la respuesta podría demorar un poco. ¿Deseas continuar?";
             let destinationUrl = '';
-
-            // 2. Elementos del Modal
             const modal = document.getElementById('actionModal');
             const msgBox = document.getElementById('modalMessage');
             const btnConfirm = document.getElementById('modalConfirm');
             const btnCancel = document.getElementById('modalCancel');
             const btnClose = document.querySelector('.close-modal');
 
-            // 3. Función para abrir modal
             const triggerModal = (e) => {
-                // Detenemos el comportamiento normal (no abrir enlace todavía)
                 e.preventDefault();
-                
-                // e.currentTarget asegura que cogemos el botón <a> y no el icono <i> de dentro
                 const button = e.currentTarget;
                 destinationUrl = button.getAttribute('data-action-target');
-                
-                // Mostrar modal
                 msgBox.textContent = horarioTxt;
                 modal.classList.add('active');
             };
@@ -280,22 +289,12 @@
                 setTimeout(() => destinationUrl = '', 300);
             };
 
-            // 4. ASIGNACIÓN DE EVENTOS (ROBUSTA)
-            // Seleccionamos por CLASE, no por ID. Esto evita fallos si se borra el ID.
             const whatsappBtns = document.querySelectorAll('.whatsapp-trigger');
             const phoneBtns = document.querySelectorAll('.phone-trigger');
 
-            // Añadimos el evento a todos los botones de whatsapp encontrados
-            whatsappBtns.forEach(btn => {
-                btn.addEventListener('click', triggerModal);
-            });
+            whatsappBtns.forEach(btn => btn.addEventListener('click', triggerModal));
+            phoneBtns.forEach(btn => btn.addEventListener('click', triggerModal));
 
-            // Añadimos el evento a todos los botones de teléfono encontrados
-            phoneBtns.forEach(btn => {
-                btn.addEventListener('click', triggerModal);
-            });
-
-            // 5. Eventos internos del modal
             btnConfirm.addEventListener('click', () => {
                 if(destinationUrl) window.location.href = destinationUrl;
                 closeModal();
@@ -303,11 +302,9 @@
 
             btnCancel.addEventListener('click', closeModal);
             btnClose.addEventListener('click', closeModal);
-            modal.addEventListener('click', (e) => {
-                if(e.target === modal) closeModal();
-            });
+            modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
 
-            // 6. PROTECCIÓN ANTI-COPIA
+            // Protección básica
             document.addEventListener('contextmenu', e => e.preventDefault());
             document.onkeydown = function(e) {
                 if(e.keyCode == 123) return false;
