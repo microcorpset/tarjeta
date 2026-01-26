@@ -2,313 +2,301 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Solicitud | Jon Glez.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- Estilos Generales --- */
         :root {
-            --primary-blue: #3b82f6;
-            --primary-blue-dark: #2563eb;
-            --bg-dark: #0d1117;
-            --card-bg-light: #161b22;
-            --text-light: #e6edf3;
-            --text-muted: #8b949e;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --input-bg: #0d1117;
-            --error-red: #f85149;
+            --primary: #6366f1; /* Indigo */
+            --bg-dark: #050505;
+            --glass-bg: rgba(20, 20, 25, 0.75);
+            --border-light: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --error: #f43f5e;
+            --success: #10b981;
         }
 
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Outfit', sans-serif;
             background-color: var(--bg-dark);
-            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://raw.githubusercontent.com/microcorpset/tarjeta/main/bg.png');
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+                url('https://raw.githubusercontent.com/microcorpset/tarjeta/main/bg.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            color: var(--text-light);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Mejor para formularios largos en móvil */
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+            padding: 20px 15px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 20px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .card {
-            background: var(--card-bg-light);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             padding: 2rem;
-            border-radius: 18px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-            max-width: 450px;
-            width: 100%;
-            border: 1px solid var(--border-color);
-            position: relative;
-            z-index: 20;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
         }
 
-        h2 { margin-top: 0; text-align: center; color: var(--primary-blue); }
-        p.desc { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+        header { text-align: center; margin-bottom: 2rem; }
+        h2 { margin: 0; font-size: 1.8rem; background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        p.desc { color: var(--text-muted); font-size: 0.95rem; margin-top: 5px; }
 
-        /* --- Estilos del Formulario --- */
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-            position: relative;
-        }
+        /* Formulario */
+        .form-group { margin-bottom: 20px; position: relative; }
 
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-size: 0.9rem;
             color: var(--text-muted);
-            transition: color 0.3s;
+            font-weight: 500;
         }
         
-        /* Indicador visual de campo requerido */
-        label.required::after {
-            content: " *";
-            color: var(--error-red);
-        }
+        label.required::after { content: " *"; color: var(--error); }
 
+        /* Inputs estilizados */
         input, select, textarea {
             width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: var(--input-bg);
-            color: var(--text-light);
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
             font-family: inherit;
-            box-sizing: border-box;
-            transition: all 0.3s;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: var(--primary-blue);
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
         }
 
-        /* Efecto cuando un campo es obligatorio pero está vacío (opcional) */
-        input:invalid:not(:placeholder-shown) {
-            border-color: var(--error-red);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        /* --- Estilos para la preferencia de contacto --- */
-        .radio-group {
+        /* Radio Group Moderno (Grid) */
+        .radio-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 5px;
+            gap: 12px;
         }
 
-        .radio-option {
+        .radio-card {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .radio-card input { position: absolute; opacity: 0; width: 0; height: 0; }
+
+        .radio-content {
             display: flex;
             align-items: center;
-            background: var(--input-bg);
-            border: 1px solid var(--border-color);
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
             transition: all 0.2s;
-        }
-
-        .radio-option:hover {
-            border-color: var(--primary-blue);
-            background: rgba(59, 130, 246, 0.1);
-        }
-
-        .radio-option.selected {
-            border-color: var(--primary-blue);
-            background: rgba(59, 130, 246, 0.15);
-        }
-
-        .radio-option input[type="radio"] {
-            width: auto;
-            margin-right: 10px;
-            accent-color: var(--primary-blue);
-        }
-
-        .radio-option span {
             font-size: 0.9rem;
-            color: var(--text-light);
+            color: var(--text-muted);
         }
 
-        @media (max-width: 400px) {
-            .radio-group { grid-template-columns: 1fr; }
+        .radio-card input:checked + .radio-content {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
         }
 
+        .radio-card:hover .radio-content { background: rgba(255,255,255,0.08); }
+
+        /* Botón Enviar */
         .btn-submit {
             width: 100%;
-            padding: 14px;
-            background: var(--primary-blue);
+            padding: 16px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 14px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.1rem;
             cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.3s;
+            margin-top: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
         }
 
-        .btn-submit:hover {
-            background: var(--primary-blue-dark);
-        }
-
+        .btn-submit:active { transform: scale(0.98); }
+        
         .back-link {
             display: block;
             text-align: center;
-            margin-top: 15px;
+            margin-top: 25px;
             color: var(--text-muted);
             text-decoration: none;
             font-size: 0.9rem;
+            padding: 10px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
         }
-        .back-link:hover { color: var(--text-light); }
+        .back-link:hover { opacity: 1; color: white; }
+
+        /* Animación suave para inputs requeridos dinámicos */
+        input::placeholder { color: rgba(255,255,255,0.2); }
+        
+        .highlight-req {
+            animation: shake 0.5s ease-in-out;
+            border-color: var(--error);
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
 
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h2>Solicitud de Servicio</h2>
-        <p class="desc">Rellena tus datos y dime cómo prefieres que contacte contigo.</p>
+    <div class="container">
+        <div class="card">
+            <header>
+                <h2>Solicitud de Servicio</h2>
+                <p class="desc">Rellena el formulario y te contactaré pronto.</p>
+            </header>
 
-        <form action="https://formspree.io/f/xzdepolb" method="POST" id="contactForm">
-            
-            <div class="form-group">
-                <label for="nombre" class="required">Nombre completo</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
-            </div>
-
-            <!-- Sección de Preferencia de Contacto -->
-            <div class="form-group">
-                <label>¿Cómo prefieres que te contacte?</label>
-                <div class="radio-group">
-                    
-                    <label class="radio-option">
-                        <input type="radio" name="preferencia_contacto" value="WhatsApp" checked onchange="updateRequirements()">
-                        <span><i class="fab fa-whatsapp"></i> WhatsApp</span>
-                    </label>
-
-                    <label class="radio-option">
-                        <input type="radio" name="preferencia_contacto" value="Telegram" onchange="updateRequirements()">
-                        <span><i class="fab fa-telegram-plane"></i> Telegram</span>
-                    </label>
-
-                    <label class="radio-option">
-                        <input type="radio" name="preferencia_contacto" value="Llamada" onchange="updateRequirements()">
-                        <span><i class="fas fa-phone-alt"></i> Llamada</span>
-                    </label>
-
-                    <label class="radio-option">
-                        <input type="radio" name="preferencia_contacto" value="Email" onchange="updateRequirements()">
-                        <span><i class="fas fa-envelope"></i> Email</span>
-                    </label>
-
+            <form action="https://formspree.io/f/xzdepolb" method="POST" id="contactForm">
+                
+                <div class="form-group">
+                    <label for="nombre" class="required">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required autocomplete="name">
                 </div>
-            </div>
 
-            <!-- Campo Teléfono -->
-            <div class="form-group">
-                <label id="label-telefono" for="telefono" class="required">Teléfono Móvil</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="Ej. 600 123 456" required>
-            </div>
+                <div class="form-group">
+                    <label>Preferencia de contacto</label>
+                    <div class="radio-grid">
+                        <label class="radio-card">
+                            <input type="radio" name="preferencia_contacto" value="WhatsApp" checked onchange="updateRequirements()">
+                            <div class="radio-content"><i class="fab fa-whatsapp"></i> WhatsApp</div>
+                        </label>
 
-            <!-- Nuevo Campo Email -->
-            <div class="form-group">
-                <label id="label-email" for="email">Correo Electrónico</label>
-                <input type="email" id="email" name="email" placeholder="nombre@ejemplo.com">
-            </div>
+                        <label class="radio-card">
+                            <input type="radio" name="preferencia_contacto" value="Telegram" onchange="updateRequirements()">
+                            <div class="radio-content"><i class="fab fa-telegram-plane"></i> Telegram</div>
+                        </label>
 
-            <div class="form-group">
-                <label for="tipo">Tipo de Solicitud</label>
-                <select id="tipo" name="tipo_servicio">
-                    <option value="Asistencia Remota">Asistencia Remota</option>
-                    <option value="Recogida de Equipo">Recogida de Equipo</option>
-                    <option value="Presupuesto">Solicitar Presupuesto</option>
-                    <option value="Otro">Otro</option>
-                </select>
-            </div>
+                        <label class="radio-card">
+                            <input type="radio" name="preferencia_contacto" value="Llamada" onchange="updateRequirements()">
+                            <div class="radio-content"><i class="fas fa-phone-alt"></i> Llamada</div>
+                        </label>
 
-            <div class="form-group">
-                <label for="mensaje" class="required">Detalles</label>
-                <textarea id="mensaje" name="mensaje" placeholder="Describe brevemente qué necesitas..." required></textarea>
-            </div>
+                        <label class="radio-card">
+                            <input type="radio" name="preferencia_contacto" value="Email" onchange="updateRequirements()">
+                            <div class="radio-content"><i class="fas fa-envelope"></i> Email</div>
+                        </label>
+                    </div>
+                </div>
 
-            <button type="submit" class="btn-submit">
-                <i class="fas fa-paper-plane"></i> Enviar Solicitud
-            </button>
-        </form>
+                <div class="form-group">
+                    <label id="label-telefono" for="telefono" class="required">Teléfono Móvil</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="600 000 000" required autocomplete="tel">
+                </div>
 
-        <a href="index.html" class="back-link">
-            <i class="fas fa-arrow-left"></i> Volver al inicio
-        </a>
+                <div class="form-group">
+                    <label id="label-email" for="email">Email (Opcional)</label>
+                    <input type="email" id="email" name="email" placeholder="hola@ejemplo.com" autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="tipo">¿Qué necesitas?</label>
+                    <select id="tipo" name="tipo_servicio">
+                        <option value="Asistencia Remota">💻 Asistencia Remota</option>
+                        <option value="Recogida de Equipo">📦 Recogida de Equipo</option>
+                        <option value="Presupuesto">💰 Solicitar Presupuesto</option>
+                        <option value="Otro">🔧 Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensaje" class="required">Detalles</label>
+                    <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntame brevemente el problema..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    Enviar Solicitud <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                </button>
+            </form>
+
+            <a href="index.html" class="back-link">
+                <i class="fas fa-chevron-left"></i> Volver al contacto
+            </a>
+        </div>
     </div>
 
     <script>
         function updateRequirements() {
-            // Obtenemos los elementos
             const radios = document.getElementsByName('preferencia_contacto');
             const telefonoInput = document.getElementById('telefono');
             const emailInput = document.getElementById('email');
             const labelTelefono = document.getElementById('label-telefono');
             const labelEmail = document.getElementById('label-email');
-            const radioOptions = document.querySelectorAll('.radio-option');
+            
+            let selectedValue = 'WhatsApp';
+            for (const radio of radios) if (radio.checked) selectedValue = radio.value;
 
-            let selectedValue = 'WhatsApp'; // Valor por defecto
+            // Reiniciar clases y placeholders
+            telefonoInput.classList.remove('highlight-req');
+            emailInput.classList.remove('highlight-req');
 
-            // Ver cuál está marcado
-            for (const radio of radios) {
-                if (radio.checked) {
-                    selectedValue = radio.value;
-                }
-            }
-
-            // Resaltar visualmente la opción seleccionada
-            radioOptions.forEach(opt => {
-                if(opt.querySelector('input').checked) {
-                    opt.classList.add('selected');
-                } else {
-                    opt.classList.remove('selected');
-                }
-            });
-
-            // Lógica de validación
             if (selectedValue === 'Email') {
-                // Si elige Email: Email es OBLIGATORIO, Teléfono es OPCIONAL
                 emailInput.required = true;
-                labelEmail.classList.add('required'); // Pone el asterisco rojo
+                labelEmail.textContent = "Email (Requerido)";
+                labelEmail.classList.add('required');
+                emailInput.placeholder = "Necesario para responderte";
                 
                 telefonoInput.required = false;
-                labelTelefono.classList.remove('required'); // Quita el asterisco rojo
-
-                // Pequeño foco visual para ayudar al usuario
-                emailInput.placeholder = "Requerido para contactar por email";
-                telefonoInput.placeholder = "Opcional si prefieres email";
-
+                labelTelefono.textContent = "Teléfono Móvil (Opcional)";
+                labelTelefono.classList.remove('required');
+                
             } else {
-                // Si elige WhatsApp, Telegram o Llamada: Teléfono OBLIGATORIO
                 telefonoInput.required = true;
+                labelTelefono.textContent = "Teléfono Móvil";
                 labelTelefono.classList.add('required');
+                telefonoInput.placeholder = "Necesario para contactar";
 
                 emailInput.required = false;
+                labelEmail.textContent = "Email (Opcional)";
                 labelEmail.classList.remove('required');
-
-                telefonoInput.placeholder = "Requerido para WhatsApp/Llamada";
-                emailInput.placeholder = "Opcional (nombre@ejemplo.com)";
             }
         }
-
-        // Ejecutar al cargar la página para establecer el estado inicial
+        
         document.addEventListener('DOMContentLoaded', updateRequirements);
     </script>
-
 </body>
 </html>
