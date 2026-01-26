@@ -321,47 +321,7 @@
     </div>
 
     <script>
-        // CONFIGURACIÓN DEL MENSAJE
-        const messageText = "Nuestro horario habitual es:\n\n📅 Lunes a Viernes\n🕘 9:00 - 18:00\n\nFuera de este horario, la respuesta podría demorar un poco. ¿Deseas continuar?";
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const btnWhatsapp = document.getElementById('btn-whatsapp');
-            const btnPhone = document.getElementById('btn-phone');
-            
-            const modalOverlay = document.getElementById('actionModal');
-            const modalMessageElement = document.getElementById('modalMessage');
-            const modalConfirm = document.getElementById('modalConfirm');
-            const modalCancel = document.getElementById('modalCancel');
-            const closeModal = modalOverlay.querySelector('.close-modal');
-
-            let currentActionUrl = '';
-
-            function openModal(event, url) {
-                event.preventDefault(); 
-                currentActionUrl = url;
-                modalMessageElement.textContent = messageText;
-                modalOverlay.classList.add('active');
-            }
-
-            function hideModal() {
-                modalOverlay.classList.remove('active');
-                setTimeout(() => { currentActionUrl = ''; }, 300);
-            }
-
-            if (btnWhatsapp) btnWhatsapp.addEventListener('click', (e) => openModal(e, btnWhatsapp.getAttribute('data-action-target')));
-            if (btnPhone) btnPhone.addEventListener('click', (e) => openModal(e, btnPhone.getAttribute('data-action-target')));
-
-            modalConfirm.addEventListener('click', () => {
-                if (currentActionUrl) window.location.href = currentActionUrl;
-                hideModal();
-            });
-
-            modalCancel.addEventListener('click', hideModal);
-            closeModal.addEventListener('click', hideModal);
-            modalOverlay.addEventListener('click', (e) => {
-                if (e.target === modalOverlay) hideModal();
-            });
-        });
+        <script src="app.js"></script>
     </script>
 </body>
 </html>
