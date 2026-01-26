@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Contacto | Jon Glez.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Fuente Outfit para textos y JetBrains Mono (o monospace) para el logo de código -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -77,15 +78,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2.5rem;
+            /* Estilos específicos para el símbolo </> */
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 1.8rem; /* Tamaño ajustado para que quepan los 3 caracteres */
             font-weight: 700;
             color: #fff;
             position: relative;
             z-index: 2;
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
             border: 3px solid rgba(255,255,255,0.1);
+            letter-spacing: -2px; /* Juntamos un poco los caracteres */
         }
 
+        /* Efecto de pulso detrás */
         .profile-wrapper::before {
             content: '';
             position: absolute;
@@ -144,9 +149,9 @@
         }
 
         .btn .icon {
-            margin-right: 12px;
-            font-size: 1.2rem;
-            width: 24px;
+            margin-right: 10px;
+            font-size: 1.1rem;
+            min-width: 20px;
             text-align: center;
         }
 
@@ -195,6 +200,7 @@
             background: transparent;
             color: var(--text-sec);
             border: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9rem; /* Letra un pelín más pequeña para que quepa bien "Guardar Contacto" */
         }
         .email:hover, .vcf:hover { color: white; background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); }
 
@@ -204,7 +210,7 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(8px);
-            z-index: 9999; /* Z-Index muy alto para asegurar que tape todo */
+            z-index: 9999;
             opacity: 0; visibility: hidden;
             transition: all 0.3s ease;
             display: flex; justify-content: center; align-items: center;
@@ -254,7 +260,8 @@
 
     <div class="card">
         <div class="profile-wrapper">
-            <div class="profile-img">J</div>
+            <!-- AQUÍ ESTÁ EL CAMBIO DEL AVATAR -->
+            <div class="profile-img">&lt;/&gt;</div>
         </div>
         
         <h1>Jon Glez.</h1>
@@ -268,19 +275,18 @@
             
             <!-- Grid para Mensajería -->
             <div class="chat-grid">
-                <!-- WhatsApp (Con ID para el modal) -->
+                <!-- WhatsApp -->
                 <a href="https://wa.me/34684003699" id="btn-whatsapp" class="btn whatsapp" data-action-target="https://wa.me/34684003699">
                     <span class="icon"><i class="fab fa-whatsapp"></i></span> WhatsApp
                 </a>
 
-                <!-- Telegram (Directo, sin modal por defecto, puedes añadirle el ID si quieres aviso) -->
-                <!-- REEMPLAZA 'TU_USUARIO' CON TU ALIAS DE TELEGRAM -->
+                <!-- Telegram (RECUERDA PONER TU USUARIO) -->
                 <a href="https://t.me/TU_USUARIO" class="btn telegram">
                     <span class="icon"><i class="fab fa-telegram-plane"></i></span> Telegram
                 </a>
             </div>
 
-            <!-- Llamada (Con ID para el modal) -->
+            <!-- Llamada -->
             <a href="tel:+34684003699" id="btn-phone" class="btn phone" data-action-target="tel:+34684003699">
                 <span class="icon"><i class="fas fa-phone"></i></span> Llamada Telefónica
             </a>
@@ -288,10 +294,11 @@
             <!-- Utilidades secundarias -->
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                 <a href="mailto:jongt23@gmail.com" class="btn email">
-                    <span class="icon"><i class="fas fa-envelope"></i></span> Correo
+                    <span class="icon"><i class="fas fa-envelope"></i></span> Email
                 </a>
+                <!-- AQUÍ ESTÁ EL CAMBIO DEL TEXTO Y EL ICONO -->
                 <a href="Jon.vcf" class="btn vcf">
-                    <span class="icon"><i class="fas fa-download"></i></span> VCF
+                    <span class="icon"><i class="fas fa-user-plus"></i></span> Guardar Contacto
                 </a>
             </div>
         </div>
@@ -318,11 +325,9 @@
         const messageText = "Nuestro horario habitual es:\n\n📅 Lunes a Viernes\n🕘 9:00 - 18:00\n\nFuera de este horario, la respuesta podría demorar un poco. ¿Deseas continuar?";
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Referencias a elementos usando ID para mayor seguridad
             const btnWhatsapp = document.getElementById('btn-whatsapp');
             const btnPhone = document.getElementById('btn-phone');
             
-            // Referencias del Modal
             const modalOverlay = document.getElementById('actionModal');
             const modalMessageElement = document.getElementById('modalMessage');
             const modalConfirm = document.getElementById('modalConfirm');
@@ -331,48 +336,28 @@
 
             let currentActionUrl = '';
 
-            // Función para abrir modal
             function openModal(event, url) {
-                event.preventDefault(); // Evita que el enlace se abra inmediatamente
+                event.preventDefault(); 
                 currentActionUrl = url;
                 modalMessageElement.textContent = messageText;
                 modalOverlay.classList.add('active');
             }
 
-            // Función para cerrar modal
             function hideModal() {
                 modalOverlay.classList.remove('active');
-                setTimeout(() => { currentActionUrl = ''; }, 300); // Limpia URL después de la animación
+                setTimeout(() => { currentActionUrl = ''; }, 300);
             }
 
-            // --- ASIGNACIÓN DE EVENTOS ---
-            
-            // Evento para WhatsApp
-            if (btnWhatsapp) {
-                btnWhatsapp.addEventListener('click', (e) => {
-                    openModal(e, btnWhatsapp.getAttribute('data-action-target'));
-                });
-            }
+            if (btnWhatsapp) btnWhatsapp.addEventListener('click', (e) => openModal(e, btnWhatsapp.getAttribute('data-action-target')));
+            if (btnPhone) btnPhone.addEventListener('click', (e) => openModal(e, btnPhone.getAttribute('data-action-target')));
 
-            // Evento para Teléfono
-            if (btnPhone) {
-                btnPhone.addEventListener('click', (e) => {
-                    openModal(e, btnPhone.getAttribute('data-action-target'));
-                });
-            }
-
-            // Botones del Modal
             modalConfirm.addEventListener('click', () => {
-                if (currentActionUrl) {
-                    window.location.href = currentActionUrl;
-                }
+                if (currentActionUrl) window.location.href = currentActionUrl;
                 hideModal();
             });
 
             modalCancel.addEventListener('click', hideModal);
             closeModal.addEventListener('click', hideModal);
-
-            // Cerrar al pulsar fuera
             modalOverlay.addEventListener('click', (e) => {
                 if (e.target === modalOverlay) hideModal();
             });
