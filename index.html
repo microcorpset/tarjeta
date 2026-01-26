@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Contacto | Jon Glez.</title>
-    <!-- Fuentes: Outfit para textos y JetBrains Mono para el logo de código -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* --- ESTILOS VISUALES (GLASSMORPHISM) --- */
         :root {
             --primary: #3b82f6;
-            --primary-glow: rgba(59, 130, 246, 0.5);
-            --accent: #8b5cf6;
             --bg-dark: #050505;
             --text-main: #ffffff;
             --text-sec: #94a3b8;
@@ -40,9 +38,10 @@
             margin: 0;
             padding: 20px;
             overflow-x: hidden;
-            user-select: none; /* Evita selección de texto */
+            user-select: none;
         }
 
+        /* Animación de entrada */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -94,7 +93,7 @@
             content: '';
             position: absolute;
             top: -5px; left: -5px; right: -5px; bottom: -5px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: linear-gradient(135deg, var(--primary), #8b5cf6);
             border-radius: 50%;
             z-index: 1;
             opacity: 0.4;
@@ -108,110 +107,66 @@
             100% { transform: scale(0.95); opacity: 0.4; }
         }
 
-        h1 {
-            font-size: 1.8rem;
-            margin: 0;
-            font-weight: 700;
-            background: linear-gradient(to right, #fff, #cbd5e1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        h1 { font-size: 1.8rem; margin: 0; font-weight: 700; color: white; }
+        .role { color: var(--text-sec); margin: 0.4rem 0 2rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .role {
-            color: var(--text-sec);
-            margin: 0.4rem 0 2rem;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .links { display: flex; flex-direction: column; gap: 12px; }
 
         .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px 20px;
-            border-radius: 14px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex; align-items: center; justify-content: center;
+            padding: 15px 20px; border-radius: 14px;
+            text-decoration: none; font-weight: 500; font-size: 1rem;
+            transition: all 0.2s;
             border: 1px solid rgba(255,255,255,0.05);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(4px);
+            position: relative; backdrop-filter: blur(4px);
+            cursor: pointer; /* Importante para PC */
         }
-
-        .btn .icon {
-            margin-right: 10px;
-            font-size: 1.1rem;
-            min-width: 20px;
-            text-align: center;
-        }
-
+        .btn .icon { margin-right: 10px; font-size: 1.1rem; min-width: 20px; text-align: center; }
         .btn:active { transform: scale(0.97); }
 
         .request {
             background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
-            font-weight: 600;
-            border: none;
-            margin-bottom: 5px;
+            color: white; border: none; margin-bottom: 5px; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
         }
-        .request:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(124, 58, 237, 0.5); }
+        .request:hover { transform: translateY(-2px); }
 
-        .chat-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
+        .chat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
+        /* Clases específicas que usará el JS */
         .whatsapp { background: linear-gradient(135deg, #25d366 0%, #128c7e 100%); color: white; border: none; }
         .telegram { background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%); color: white; border: none; }
         .whatsapp:hover, .telegram:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-        .phone {
-            background: rgba(59, 130, 246, 0.1);
-            color: #60a5fa;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-        }
+        .phone { background: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); }
         .phone:hover { background: rgba(59, 130, 246, 0.2); color: white; }
 
-        .email, .vcf {
-            background: transparent;
-            color: var(--text-sec);
-            border: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.9rem;
-        }
-        .email:hover, .vcf:hover { color: white; background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); }
+        .email, .vcf { background: transparent; color: var(--text-sec); border: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
+        .email:hover, .vcf:hover { color: white; background: rgba(255,255,255,0.05); }
 
-        /* --- Modal Estilizado --- */
+        /* --- MODAL (Overlay y Ventana) --- */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(8px);
-            z-index: 9999;
-            opacity: 0; visibility: hidden;
+            z-index: 9999; /* Asegura que esté encima de todo */
+            opacity: 0; visibility: hidden; pointer-events: none;
             transition: all 0.3s ease;
             display: flex; justify-content: center; align-items: center;
             padding: 20px;
         }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
+        
+        /* Clase que activa el modal */
+        .modal-overlay.active { 
+            opacity: 1; 
+            visibility: visible; 
+            pointer-events: all;
+        }
 
         .modal-content {
             background: #161b22;
             border: 1px solid rgba(255,255,255,0.1);
-            padding: 30px;
-            border-radius: 24px;
-            max-width: 350px;
-            width: 100%;
+            padding: 30px; border-radius: 24px;
+            max-width: 350px; width: 100%;
             text-align: center;
             transform: scale(0.9);
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -219,27 +174,17 @@
         }
         .modal-overlay.active .modal-content { transform: scale(1); }
 
-        .modal-title { color: white; margin-bottom: 10px; font-size: 1.4rem; }
+        .modal-title { color: white; margin-bottom: 10px; font-size: 1.4rem; font-weight: 700; }
         .modal-message { color: var(--text-sec); margin-bottom: 25px; line-height: 1.6; font-size: 0.95rem; white-space: pre-wrap; }
 
-        .modal-buttons { display: flex; gap: 10px; justify-content: center; }
-        .modal-btn {
-            padding: 14px 20px;
-            border-radius: 12px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            flex: 1;
-            font-size: 0.95rem;
-        }
+        .modal-buttons { display: flex; gap: 10px; }
+        .modal-btn { padding: 14px 20px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; flex: 1; font-size: 0.95rem; transition: background 0.2s; }
         .confirm { background: var(--primary); color: white; }
+        .confirm:hover { background: #2563eb; }
         .cancel { background: rgba(255,255,255,0.1); color: white; }
+        .cancel:hover { background: rgba(255,255,255,0.15); }
         
-        .close-modal { 
-            position: absolute; top: 15px; right: 20px; 
-            background: none; border: none; color: #666; 
-            font-size: 1.5rem; cursor: pointer; padding: 5px;
-        }
+        .close-modal { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #666; font-size: 1.5rem; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -258,19 +203,21 @@
             </a>
             
             <div class="chat-grid">
-                <!-- WhatsApp con ID para modal -->
-                <a href="https://wa.me/34684003699" id="btn-whatsapp" class="btn whatsapp" data-action-target="https://wa.me/34684003699">
+                <!-- BOTÓN WHATSAPP -->
+                <!-- Nota: Usamos la clase 'whatsapp-trigger' para identificarlo en JS -->
+                <a href="https://wa.me/34684003699" class="btn whatsapp whatsapp-trigger" data-action-target="https://wa.me/34684003699">
                     <span class="icon"><i class="fab fa-whatsapp"></i></span> WhatsApp
                 </a>
                 
-                <!-- Telegram (Pon tu usuario aquí abajo) -->
+                <!-- BOTÓN TELEGRAM -->
                 <a href="https://t.me/TU_USUARIO" class="btn telegram">
                     <span class="icon"><i class="fab fa-telegram-plane"></i></span> Telegram
                 </a>
             </div>
 
-            <!-- Llamada con ID para modal -->
-            <a href="tel:+34684003699" id="btn-phone" class="btn phone" data-action-target="tel:+34684003699">
+            <!-- BOTÓN LLAMADA -->
+            <!-- Nota: Usamos la clase 'phone-trigger' para identificarlo en JS -->
+            <a href="tel:+34684003699" class="btn phone phone-trigger" data-action-target="tel:+34684003699">
                 <span class="icon"><i class="fas fa-phone"></i></span> Llamada Telefónica
             </a>
 
@@ -285,7 +232,7 @@
         </div>
     </div>
 
-    <!-- Modal de Horario -->
+    <!-- MODAL DE AVISO DE HORARIO -->
     <div id="actionModal" class="modal-overlay">
         <div class="modal-content">
             <button class="close-modal">&times;</button>
@@ -302,50 +249,72 @@
     </div>
 
     <script>
-        // CONFIGURACIÓN DEL MENSAJE
-        const messageText = "Nuestro horario habitual es:\n\n📅 Lunes a Viernes\n🕘 9:00 - 18:00\n\nFuera de este horario, la respuesta podría demorar un poco. ¿Deseas continuar?";
-
         document.addEventListener('DOMContentLoaded', () => {
-            // Referencias directas por ID (Lo que funcionaba antes)
-            const btnWhatsapp = document.getElementById('btn-whatsapp');
-            const btnPhone = document.getElementById('btn-phone');
-            
-            const modalOverlay = document.getElementById('actionModal');
-            const modalMessageElement = document.getElementById('modalMessage');
-            const modalConfirm = document.getElementById('modalConfirm');
-            const modalCancel = document.getElementById('modalCancel');
-            const closeModal = modalOverlay.querySelector('.close-modal');
+            // 1. Configuración
+            const horarioTxt = "Nuestro horario habitual es:\n\n📅 Lunes a Viernes\n🕘 9:00 - 18:00\n\nFuera de este horario, la respuesta podría demorar un poco. ¿Deseas continuar?";
+            let destinationUrl = '';
 
-            let currentActionUrl = '';
+            // 2. Elementos del Modal
+            const modal = document.getElementById('actionModal');
+            const msgBox = document.getElementById('modalMessage');
+            const btnConfirm = document.getElementById('modalConfirm');
+            const btnCancel = document.getElementById('modalCancel');
+            const btnClose = document.querySelector('.close-modal');
 
-            function openModal(event, url) {
-                event.preventDefault(); // Detiene el click
-                currentActionUrl = url;
-                modalMessageElement.textContent = messageText;
-                modalOverlay.classList.add('active');
-            }
+            // 3. Función para abrir modal
+            const triggerModal = (e) => {
+                // Detenemos el comportamiento normal (no abrir enlace todavía)
+                e.preventDefault();
+                
+                // e.currentTarget asegura que cogemos el botón <a> y no el icono <i> de dentro
+                const button = e.currentTarget;
+                destinationUrl = button.getAttribute('data-action-target');
+                
+                // Mostrar modal
+                msgBox.textContent = horarioTxt;
+                modal.classList.add('active');
+            };
 
-            function hideModal() {
-                modalOverlay.classList.remove('active');
-                setTimeout(() => { currentActionUrl = ''; }, 300);
-            }
+            const closeModal = () => {
+                modal.classList.remove('active');
+                setTimeout(() => destinationUrl = '', 300);
+            };
 
-            // Asignación de eventos: Simple y Directa
-            if (btnWhatsapp) {
-                btnWhatsapp.addEventListener('click', function(e) {
-                    openModal(e, this.getAttribute('data-action-target'));
-                });
-            }
+            // 4. ASIGNACIÓN DE EVENTOS (ROBUSTA)
+            // Seleccionamos por CLASE, no por ID. Esto evita fallos si se borra el ID.
+            const whatsappBtns = document.querySelectorAll('.whatsapp-trigger');
+            const phoneBtns = document.querySelectorAll('.phone-trigger');
 
-            if (btnPhone) {
-                btnPhone.addEventListener('click', function(e) {
-                    openModal(e, this.getAttribute('data-action-target'));
-                });
-            }
-
-            modalConfirm.addEventListener('click', () => {
-                if (currentActionUrl) window.location.href = currentActionUrl;
-                hideModal();
+            // Añadimos el evento a todos los botones de whatsapp encontrados
+            whatsappBtns.forEach(btn => {
+                btn.addEventListener('click', triggerModal);
             });
 
-            modalCancel.
+            // Añadimos el evento a todos los botones de teléfono encontrados
+            phoneBtns.forEach(btn => {
+                btn.addEventListener('click', triggerModal);
+            });
+
+            // 5. Eventos internos del modal
+            btnConfirm.addEventListener('click', () => {
+                if(destinationUrl) window.location.href = destinationUrl;
+                closeModal();
+            });
+
+            btnCancel.addEventListener('click', closeModal);
+            btnClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if(e.target === modal) closeModal();
+            });
+
+            // 6. PROTECCIÓN ANTI-COPIA
+            document.addEventListener('contextmenu', e => e.preventDefault());
+            document.onkeydown = function(e) {
+                if(e.keyCode == 123) return false;
+                if(e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) return false;
+                if(e.ctrlKey && e.keyCode == 85) return false;
+            }
+        });
+    </script>
+</body>
+</html>
