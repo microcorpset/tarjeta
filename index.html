@@ -2,349 +2,276 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Contacto | Jon Glez.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-blue: #3b82f6; /* Azul brillante para elementos principales */
-            --primary-blue-dark: #2563eb; /* Azul oscuro para hover */
-            --bg-dark: #0d1117; /* Fondo muy oscuro, casi negro */
-            --card-bg-light: #161b22; /* Fondo de tarjeta un poco más claro que el fondo principal */
-            --text-light: #e6edf3; /* Texto principal claro */
-            --text-muted: #8b949e; /* Texto secundario/descriptivo */
-            --border-color: rgba(255, 255, 255, 0.1);
-            --whatsapp-green: #25d366;
-            --whatsapp-green-dark: #1da851;
-            --phone-blue: #007bff;
-            --phone-blue-dark: #0056b3;
-            --email-gray: #6c757d;
-            --email-gray-dark: #5a6268;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.5);
+            --accent: #8b5cf6;
+            --bg-dark: #050505;
+            --text-main: #ffffff;
+            --text-sec: #94a3b8;
+            --glass-bg: rgba(20, 20, 25, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark); /* Color de fallback si la imagen no carga */
-            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://raw.githubusercontent.com/microcorpset/tarjeta/main/bg.png'); /* URL de tu imagen de fondo */
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            /* Fondo animado moderno */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                url('https://raw.githubusercontent.com/microcorpset/tarjeta/main/bg.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            color: var(--text-light);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        /* Animación de entrada general */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .card {
-            background: var(--card-bg-light);
-            padding: 2.5rem 1.8rem;
-            border-radius: 18px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-            max-width: 380px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 3rem 2rem;
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
+            max-width: 400px;
             width: 100%;
             text-align: center;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--glass-border);
             position: relative;
-            overflow: hidden;
-            z-index: 20;
+            z-index: 10;
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        .card::before {
+        /* Brillo superior en la tarjeta */
+        .card::after {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
-            opacity: 0.5;
-            animation: rotateBg 20s linear infinite;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
         }
 
-        @keyframes rotateBg {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .profile-wrapper {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
         }
 
         .profile-img {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
             border-radius: 50%;
-            margin: 0 auto 1.5rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             font-weight: 700;
-            color: var(--text-light);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
-            border: 3px solid var(--bg-dark);
+            color: #fff;
             position: relative;
-            z-index: 10;
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            border: 3px solid rgba(255,255,255,0.1);
+        }
+
+        /* Efecto de pulso detrás de la foto */
+        .profile-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            z-index: 1;
+            opacity: 0.4;
+            filter: blur(10px);
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.4; }
+            50% { transform: scale(1.1); opacity: 0.2; }
+            100% { transform: scale(0.95); opacity: 0.4; }
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin: 0;
-            letter-spacing: -0.03em;
-            color: var(--text-light);
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
 
         .role {
-            color: var(--text-muted);
-            margin: 0.5rem 0 2.5rem;
-            font-size: 1rem;
-            font-weight: 500;
+            color: var(--text-sec);
+            margin: 0.5rem 0 2rem;
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .links {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
         }
 
         .btn {
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 15px;
-            border-radius: 10px;
+            justify-content: center; /* Centrado en móvil */
+            padding: 16px 20px;
+            border-radius: 14px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.05rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid rgba(255,255,255,0.05);
             position: relative;
             overflow: hidden;
-            z-index: 1;
+            backdrop-filter: blur(4px);
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        .btn .icon {
+            margin-right: 12px;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
         }
 
-        .btn:active {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
+        .btn:active { transform: scale(0.98); }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            transition: all 0.5s ease-out;
-            transform: translate(-50%, -50%) scale(0);
-            opacity: 0;
-            z-index: -1;
+        /* Estilos específicos de botones */
+        .request {
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+            font-weight: 600;
+            border: none;
         }
-
-        .btn:hover::before {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-        }
-
-        .vcf {
-            background: var(--primary-blue);
-            color: var(--text-light);
-        }
-        .vcf:hover { background: var(--primary-blue-dark); }
+        .request:hover { box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5); transform: translateY(-2px); }
 
         .whatsapp {
-            background: var(--whatsapp-green);
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
             color: white;
-        }
-        .whatsapp:hover { background: var(--whatsapp-green-dark); }
-
-        .phone {
-            background: var(--primary-blue);
-            color: white;
-        }
-        .phone:hover { background: var(--primary-blue-dark); }
-
-        .email {
-            background: var(--card-bg-light);
-            color: var(--text-light);
-            border: 1px solid var(--border-color);
-        }
-        .email:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .icon {
-            margin-right: 12px;
-            font-size: 1.3rem;
+            border: none;
         }
         
-        @media (max-width: 480px) {
-            .card {
-                padding: 2rem 1rem;
-                border-radius: 15px;
-            }
-            h1 { font-size: 1.6rem; }
-            .role { font-size: 0.9rem; margin-bottom: 2rem; }
-            .btn { font-size: 0.95rem; padding: 13px; }
-            .icon { font-size: 1.1rem; margin-right: 8px; }
-            body { padding: 15px; }
-        }
-
-        /* --- Estilos del Modal Personalizado --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro translúcido */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000; /* Asegura que esté por encima de todo */
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background-color: var(--card-bg-light);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            transform: translateY(-20px);
-            opacity: 0;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            position: relative;
-            border: 1px solid var(--border-color);
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .modal-message {
-            font-size: 1rem;
-            color: var(--text-light);
-            line-height: 1.6;
-            margin-bottom: 25px;
-            white-space: pre-wrap; /* Para que los saltos de línea (\n) funcionen */
-        }
-
-        .modal-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .modal-btn {
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-            border: none;
-        }
-
-        .modal-btn.confirm {
-            background-color: var(--primary-blue);
+        .phone {
+            background: rgba(255, 255, 255, 0.05);
             color: white;
-        }
-        .modal-btn.confirm:hover {
-            background-color: var(--primary-blue-dark);
-            transform: translateY(-2px);
-        }
-
-        .modal-btn.cancel {
-            background-color: var(--text-muted);
-            color: white;
-        }
-        .modal-btn.cancel:hover {
-            background-color: #727b87; /* Un gris un poco más oscuro */
-            transform: translateY(-2px);
-        }
-
-        /* Botón de cerrar (opcional) */
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            line-height: 1;
-            transition: color 0.2s ease;
-        }
-        .close-modal:hover {
-            color: var(--primary-blue);
-        }
-        .request {
-            background: #8b5cf6; /* Violeta */
-            color: white;
-            margin-bottom: 10px; /* Un poco de separación extra si quieres */
             border: 1px solid rgba(255,255,255,0.1);
         }
-        .request:hover {
-            background: #7c3aed;
+        .phone:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255,255,255,0.3); }
+
+        .email, .vcf {
+            background: transparent;
+            color: var(--text-sec);
+            border: 1px solid rgba(255,255,255,0.05);
         }
+        .email:hover, .vcf:hover { color: white; background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); }
+
+        /* --- Modal Estilizado --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: all 0.3s ease;
+            display: flex; justify-content: center; align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+
+        .modal-content {
+            background: #161b22;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 350px;
+            width: 100%;
+            text-align: center;
+            transform: scale(0.9);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+
+        .modal-title { color: white; margin-bottom: 10px; font-size: 1.4rem; }
+        .modal-message { color: var(--text-sec); margin-bottom: 25px; line-height: 1.5; font-size: 0.95rem; }
+
+        .modal-buttons { display: flex; gap: 10px; justify-content: center; }
+        .modal-btn {
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            flex: 1;
+        }
+        .confirm { background: var(--primary); color: white; }
+        .cancel { background: rgba(255,255,255,0.1); color: white; }
+        .close-modal { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #666; font-size: 1.5rem; cursor: pointer; }
+
     </style>
 </head>
 <body>
 
     <div class="card">
-        <div class="profile-img">J</div>
+        <div class="profile-wrapper">
+            <div class="profile-img">J</div>
+        </div>
+        
         <h1>Jon Glez.</h1>
         <p class="role">Programador & Servicios Informáticos</p>
 
         <div class="links">
             <a href="solicitud.html" class="btn request">
-                <span class="icon"><i class="fas fa-clipboard-check"></i></span> Solicitar Recogida / Asistencia
+                <span class="icon"><i class="fas fa-bolt"></i></span> Solicitar Servicio
             </a>
             
-            <a href="Jon.vcf" class="btn vcf">
-                <span class="icon"><i class="fas fa-user-plus"></i></span> Guardar Contacto
-            </a>
-
             <a href="https://wa.me/34684003699" class="btn whatsapp" data-action-target="https://wa.me/34684003699">
                 <span class="icon"><i class="fab fa-whatsapp"></i></span> WhatsApp
             </a>
-            
-            <a href="tel:+34684003699" class="btn phone" data-action-target="tel:+34684003699">
-                <span class="icon"><i class="fas fa-phone-alt"></i></span> Llamar Ahora
-            </a>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <a href="tel:+34684003699" class="btn phone" data-action-target="tel:+34684003699">
+                    <span class="icon"><i class="fas fa-phone"></i></span> Llamar
+                </a>
+                <a href="Jon.vcf" class="btn vcf">
+                    <span class="icon"><i class="fas fa-download"></i></span> Guardar
+                </a>
+            </div>
 
             <a href="mailto:jongt23@gmail.com" class="btn email">
-                <span class="icon"><i class="fas fa-envelope"></i></span> Correo electrónico
+                <span class="icon"><i class="fas fa-envelope"></i></span> Enviar Correo
             </a>
         </div>
     </div>
@@ -353,91 +280,43 @@
     <div id="actionModal" class="modal-overlay">
         <div class="modal-content">
             <button class="close-modal">&times;</button>
-            <h2 class="modal-title">ATENCIÓN</h2>
+            <div style="font-size: 2rem; color: #f59e0b; margin-bottom: 10px;"><i class="fas fa-clock"></i></div>
+            <h2 class="modal-title">Horario de Atención</h2>
             <p id="modalMessage" class="modal-message"></p>
             <div class="modal-buttons">
-                <button id="modalConfirm" class="modal-btn confirm">Continuar</button>
                 <button id="modalCancel" class="modal-btn cancel">Cancelar</button>
+                <button id="modalConfirm" class="modal-btn confirm">Continuar</button>
             </div>
         </div>
     </div>
 
     <script>
-        // --- CONFIGURACIÓN DEL MENSAJE Y HORARIO ---
-        const modalTitle = "ATENCIÓN"; // Título personalizado del modal
-        const messageText = "Por favor, ten en cuenta nuestro horario de trabajo:\n\nLunes a Viernes: 9:00 - 18:00\n\nFuera de este horario, la respuesta podría demorar. ¿Deseas continuar?";
-        // --- FIN DE CONFIGURACIÓN ---
+        // --- LÓGICA ORIGINAL CONSERVADA ---
+        const modalTitle = "ATENCIÓN"; 
+        const messageText = "Nuestro horario es:\nLunes a Viernes: 9:00 - 18:00\n\nFuera de horario la respuesta puede demorar.";
 
         document.addEventListener('DOMContentLoaded', () => {
             const whatsappButton = document.querySelector('.btn.whatsapp');
             const phoneButton = document.querySelector('.btn.phone');
             
             const modalOverlay = document.getElementById('actionModal');
-            const modalTitleElement = modalOverlay.querySelector('.modal-title');
             const modalMessageElement = document.getElementById('modalMessage');
             const modalConfirmButton = document.getElementById('modalConfirm');
             const modalCancelButton = document.getElementById('modalCancel');
             const closeModalButton = modalOverlay.querySelector('.close-modal');
 
-            let currentActionUrl = ''; // Variable para almacenar la URL a la que se debe ir
+            let currentActionUrl = '';
 
-            // Función para mostrar el modal
             function showModal(url) {
                 currentActionUrl = url;
-                modalTitleElement.textContent = modalTitle;
                 modalMessageElement.textContent = messageText;
                 modalOverlay.classList.add('active');
             }
 
-            // Función para ocultar el modal
             function hideModal() {
                 modalOverlay.classList.remove('active');
-                currentActionUrl = ''; // Limpiar la URL al cerrar el modal
+                currentActionUrl = '';
             }
 
-            // Event Listeners para los botones de WhatsApp y Teléfono
-            if (whatsappButton) {
-                whatsappButton.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    showModal(this.getAttribute('data-action-target'));
-                });
-            }
-
-            if (phoneButton) {
-                phoneButton.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    showModal(this.getAttribute('data-action-target'));
-                });
-            }
-
-            // Event Listeners para los botones del modal
-            if (modalConfirmButton) {
-                modalConfirmButton.addEventListener('click', () => {
-                    if (currentActionUrl) {
-                        window.location.href = currentActionUrl; // Ejecutar la acción si se confirmó
-                    }
-                    hideModal();
-                });
-            }
-
-            if (modalCancelButton) {
-                modalCancelButton.addEventListener('click', hideModal); // Cerrar el modal al cancelar
-            }
-            
-            if (closeModalButton) {
-                closeModalButton.addEventListener('click', hideModal); // Cerrar el modal con la X
-            }
-
-            // Cerrar el modal al hacer clic fuera de él
-            if (modalOverlay) {
-                modalOverlay.addEventListener('click', (event) => {
-                    if (event.target === modalOverlay) {
-                        hideModal();
-                    }
-                });
-            }
-        });
-    </script>
-
-</body>
-</html>
+            if (whatsappButton) whatsappButton.addEventListener('click', function(e) { e.preventDefault(); showModal(this.getAttribute('data-action-target')); });
+            if (phoneButton) phoneButton.addEven
