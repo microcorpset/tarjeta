@@ -139,6 +139,50 @@
         }
         .request:hover { transform: translateY(-2px); }
 
+        .hospitality-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .hospitality-label {
+            margin: 0 0 4px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #fcd34d;
+        }
+
+        .hospitality-main {
+            background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 12px 28px rgba(234, 88, 12, 0.35);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hospitality-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px rgba(234, 88, 12, 0.45);
+        }
+
+        .hospitality-secondary {
+            background: rgba(251, 191, 36, 0.12);
+            color: #fde68a;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            font-weight: 600;
+        }
+
+        .hospitality-secondary:hover {
+            transform: translateY(-2px);
+            background: rgba(251, 191, 36, 0.18);
+            color: white;
+        }
+
         .chat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
         .whatsapp { background: linear-gradient(135deg, #25d366 0%, #128c7e 100%); color: white; border: none; }
@@ -204,6 +248,19 @@
                 <span class="icon"><i class="fas fa-user-shield"></i></span> Área Clientes
             </a>
             <!-- ============================================== -->
+
+            <div class="hospitality-links">
+                <p class="hospitality-label">Soluciones para restaurantes y bares</p>
+                <a href="https://microcorpset.github.io/comandero-bar/comandero-landing-25.html" class="btn hospitality-main" target="_blank" rel="noopener noreferrer">
+                    <span class="icon"><i class="fas fa-utensils"></i></span> ESPECIAL HOSTELER&Iacute;A
+                </a>
+                <a href="https://microcorpset.github.io/democarta/precios" class="btn hospitality-secondary" target="_blank" rel="noopener noreferrer">
+                    <span class="icon"><i class="fas fa-book-open"></i></span> CARTA DIGITAL
+                </a>
+                <a href="https://microcorpset.github.io/democarta/cola-landing" class="btn hospitality-secondary" target="_blank" rel="noopener noreferrer">
+                    <span class="icon"><i class="fas fa-users"></i></span> AUTO-GESTI&Oacute;N LISTA ESPERA
+                </a>
+            </div>
 
             <a href="solicitud.html" class="btn request">
                 <span class="icon"><i class="fas fa-bolt"></i></span> Solicitar Servicio
