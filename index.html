@@ -10,12 +10,13 @@
         /* --- ESTILOS VISUALES --- */
         :root {
             --primary: #3b82f6;
-            --bg-dark: #050505;
+            --bg-dark: #050508;
             --text-main: #ffffff;
             --text-sec: #94a3b8;
-            --glass-bg: rgba(20, 20, 25, 0.65);
+            --glass-bg: rgba(15, 15, 22, 0.72);
             --glass-border: rgba(255, 255, 255, 0.08);
-            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --card-shadow: 0 8px 48px 0 rgba(0, 0, 0, 0.55);
+            --hostel-accent: #f59e0b;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -23,13 +24,6 @@
         body {
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
-                url('https://raw.githubusercontent.com/microcorpset/tarjeta/main/bg.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
             color: var(--text-main);
             display: flex;
             justify-content: center;
@@ -39,6 +33,53 @@
             padding: 20px;
             overflow-x: hidden;
             user-select: none;
+            position: relative;
+        }
+
+        /* Fondo: imagen + orbes animados */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url('https://raw.githubusercontent.com/microcorpset/tarjeta/main/bg.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.18;
+            z-index: 0;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            animation: orbFloat linear infinite;
+            pointer-events: none;
+        }
+        .bg-orb-1 {
+            width: 420px; height: 420px;
+            background: radial-gradient(circle, rgba(59,130,246,0.22), transparent 70%);
+            top: -120px; left: -100px;
+            animation-duration: 18s;
+        }
+        .bg-orb-2 {
+            width: 380px; height: 380px;
+            background: radial-gradient(circle, rgba(139,92,246,0.18), transparent 70%);
+            bottom: -80px; right: -80px;
+            animation-duration: 22s;
+            animation-direction: reverse;
+        }
+        .bg-orb-3 {
+            width: 260px; height: 260px;
+            background: radial-gradient(circle, rgba(245,158,11,0.12), transparent 70%);
+            top: 50%; left: 60%;
+            animation-duration: 28s;
+        }
+        @keyframes orbFloat {
+            0%   { transform: translate(0, 0) scale(1); }
+            33%  { transform: translate(30px, -20px) scale(1.05); }
+            66%  { transform: translate(-20px, 30px) scale(0.97); }
+            100% { transform: translate(0, 0) scale(1); }
         }
 
         @keyframes fadeInUp {
@@ -139,48 +180,112 @@
         }
         .request:hover { transform: translateY(-2px); }
 
+        /* --- SECCIÓN HOSTELERÍA --- */
+        .hospitality-section {
+            background: linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(234,88,12,0.06) 100%);
+            border: 1px solid rgba(245,158,11,0.25);
+            border-radius: 18px;
+            padding: 16px 14px 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hospitality-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #f59e0b, #ea580c, transparent);
+            border-radius: 2px 2px 0 0;
+        }
+
         .hospitality-links {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-bottom: 6px;
         }
 
+        .hospitality-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
         .hospitality-label {
-            margin: 0 0 4px;
-            font-size: 0.78rem;
+            margin: 0;
+            font-size: 0.73rem;
             font-weight: 700;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: #fcd34d;
+            color: #fbbf24;
+        }
+        .hospitality-header-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(251,191,36,0.3), transparent);
         }
 
         .hospitality-main {
             background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
             color: white;
             border: none;
-            box-shadow: 0 12px 28px rgba(234, 88, 12, 0.35);
+            box-shadow: 0 8px 24px rgba(234, 88, 12, 0.4);
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.06em;
+            font-size: 1rem;
         }
-
         .hospitality-main:hover {
             transform: translateY(-2px);
-            box-shadow: 0 16px 32px rgba(234, 88, 12, 0.45);
+            box-shadow: 0 14px 32px rgba(234, 88, 12, 0.55);
+            filter: brightness(1.08);
         }
 
-        .hospitality-secondary {
-            background: rgba(251, 191, 36, 0.12);
+        .hostel-sub-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .hospitality-carta {
+            background: linear-gradient(135deg, rgba(251,191,36,0.18) 0%, rgba(245,158,11,0.1) 100%);
             color: #fde68a;
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            font-weight: 600;
+            border: 1px solid rgba(251,191,36,0.4);
+            font-weight: 700;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            flex-direction: column;
+            gap: 4px;
+            padding: 14px 10px;
+        }
+        .hospitality-carta .icon { margin-right: 0; font-size: 1.3rem; margin-bottom: 2px; }
+        .hospitality-carta:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, rgba(251,191,36,0.28) 0%, rgba(245,158,11,0.18) 100%);
+            border-color: rgba(251,191,36,0.65);
+            color: white;
+            box-shadow: 0 6px 20px rgba(245,158,11,0.25);
         }
 
-        .hospitality-secondary:hover {
+        .hospitality-cola {
+            background: linear-gradient(135deg, rgba(52,211,153,0.15) 0%, rgba(16,185,129,0.08) 100%);
+            color: #6ee7b7;
+            border: 1px solid rgba(52,211,153,0.35);
+            font-weight: 700;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            flex-direction: column;
+            gap: 4px;
+            padding: 14px 10px;
+        }
+        .hospitality-cola .icon { margin-right: 0; font-size: 1.3rem; margin-bottom: 2px; }
+        .hospitality-cola:hover {
             transform: translateY(-2px);
-            background: rgba(251, 191, 36, 0.18);
+            background: linear-gradient(135deg, rgba(52,211,153,0.25) 0%, rgba(16,185,129,0.15) 100%);
+            border-color: rgba(52,211,153,0.6);
             color: white;
+            box-shadow: 0 6px 20px rgba(52,211,153,0.25);
         }
 
         .chat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -220,6 +325,9 @@
     </style>
 </head>
 <body>
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
 
     <div class="card">
         <div class="profile-wrapper">
@@ -249,17 +357,25 @@
             </a>
             <!-- ============================================== -->
 
-            <div class="hospitality-links">
-                <p class="hospitality-label">Soluciones para restaurantes y bares</p>
-                <a href="https://microcorpset.github.io/comandero-bar/comandero-landing-25.html" class="btn hospitality-main" target="_blank" rel="noopener noreferrer">
-                    <span class="icon"><i class="fas fa-utensils"></i></span> ESPECIAL HOSTELER&Iacute;A
-                </a>
-                <a href="https://microcorpset.github.io/democarta/precios" class="btn hospitality-secondary" target="_blank" rel="noopener noreferrer">
-                    <span class="icon"><i class="fas fa-book-open"></i></span> CARTA DIGITAL
-                </a>
-                <a href="https://microcorpset.github.io/democarta/cola-landing" class="btn hospitality-secondary" target="_blank" rel="noopener noreferrer">
-                    <span class="icon"><i class="fas fa-users"></i></span> AUTO-GESTI&Oacute;N LISTA ESPERA
-                </a>
+            <div class="hospitality-section">
+                <div class="hospitality-header">
+                    <i class="fas fa-star" style="color:#fbbf24;font-size:0.7rem;"></i>
+                    <p class="hospitality-label">Hostelería</p>
+                    <div class="hospitality-header-line"></div>
+                </div>
+                <div class="hospitality-links">
+                    <a href="https://microcorpset.github.io/comandero-bar/comandero-landing-25.html" class="btn hospitality-main" target="_blank" rel="noopener noreferrer">
+                        <span class="icon"><i class="fas fa-utensils"></i></span> ESPECIAL HOSTELER&Iacute;A
+                    </a>
+                    <div class="hostel-sub-grid">
+                        <a href="https://microcorpset.github.io/democarta/precios" class="btn hospitality-carta" target="_blank" rel="noopener noreferrer">
+                            <span class="icon"><i class="fas fa-book-open"></i></span> CARTA DIGITAL
+                        </a>
+                        <a href="https://microcorpset.github.io/democarta/cola-landing" class="btn hospitality-cola" target="_blank" rel="noopener noreferrer">
+                            <span class="icon"><i class="fas fa-users"></i></span> AUTO-GESTI&Oacute;N
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <a href="solicitud.html" class="btn request">
