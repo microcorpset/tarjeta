@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Área Clientes</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: #050508;
+        }
+
+        #app-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe
+        id="app-frame"
+        src="https://script.google.com/macros/s/AKfycbww9yWeeDcTZVV42Uh0Ncje3gNE04fSQHgGw3vFT9KdIiy85ieOrRRoBWSJUaGd87o6rg/exec"
+        allow="camera; microphone; geolocation; clipboard-write"
+        allowfullscreen>
+    </iframe>
+
+    <script>
+        window.onload = function() {
+            document.getElementById('app-frame').focus();
+        };
+    </script>
+</body>
+</html>
