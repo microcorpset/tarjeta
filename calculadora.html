@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Ahorro — Comandero</title>
+  <!-- Google Fonts: Outfit for body, Cormorant Garamond for elegant titles -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #08090D;
+      --bg-card: rgba(18, 20, 29, 0.7);
+      --bg-card-hover: rgba(26, 29, 42, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(184, 149, 58, 0.2);
+      
+      --gold: #C5A85A;
+      --gold-dark: #A3843B;
+      --gold-light: #E5C97C;
+      --gold-glow: rgba(197, 168, 90, 0.15);
+      
+      --green: #10B981;
+      --green-dark: #059669;
+      --green-glow: rgba(16, 185, 129, 0.15);
+      
+      --rust: #EF4444;
+      
+      --text-main: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --text-dim: #6B7280;
+      
+      --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(197, 168, 90, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 45%);
+      background-attachment: fixed;
+    }
+
+    /* Contenedor Principal */
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Cabecera */
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .badge-comercial {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gold-glow);
+      border: 1px solid rgba(197, 168, 90, 0.3);
+      color: var(--gold-light);
+      padding: 0.35rem 1rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      animation: pulseGlow 3s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 5px rgba(197, 168, 90, 0.1); }
+      100% { box-shadow: 0 0 15px rgba(197, 168, 90, 0.3); }
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #FFF 60%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Grid de la Calculadora */
+    .calculator-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .calculator-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+    }
+
+    /* Tarjetas base */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.8rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: transparent;
+      transition: background-color 0.3s;
+    }
+
+    .card-control::before {
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+    }
+
+    .card-results::before {
+      background: linear-gradient(90deg, var(--green-dark), var(--green));
+    }
+
+    /* Panel de Control (Izquierda) */
+    .control-group {
+      margin-bottom: 2rem;
+    }
+
+    .control-label-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.8rem;
+    }
+
+    .control-label {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .control-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      font-family: var(--font-display);
+    }
+
+    .control-value span {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-left: 0.2rem;
+    }
+
+    /* Custom Slider */
+    .slider-container {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .range-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      outline: none;
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+
+    .range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      box-shadow: 0 0 10px rgba(197, 168, 90, 0.5), 0 0 2px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      transition: transform 0.1s, background-color 0.2s;
+      border: 2px solid #FFF;
+    }
+
+    .range-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      background: #FFF;
+    }
+
+    .range-slider::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      box-shadow: 0 0 10px rgba(197, 168, 90, 0.5), 0 0 2px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      border: 2px solid #FFF;
+      transition: transform 0.1s;
+    }
+
+    .range-slider::-moz-range-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    .slider-ticks {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 5px;
+      margin-top: 0.5rem;
+    }
+
+    .slider-ticks span {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+
+    /* Lista de beneficios breves */
+    .mini-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .mini-benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .mini-benefit-item svg {
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* Resultados (Derecha) */
+    .results-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .results-header-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.3rem;
+    }
+
+    .saving-badge {
+      background: var(--green-glow);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 1.2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 1.8rem;
+      position: relative;
+    }
+
+    .saving-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+    }
+
+    .saving-amount {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #10B981;
+      font-family: var(--font-display);
+      text-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+    }
+
+    .compare-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+      padding: 0.6rem 0.8rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .compare-row.highlight {
+      background: rgba(197, 168, 90, 0.05);
+      border-color: rgba(197, 168, 90, 0.15);
+    }
+
+    .compare-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .compare-val {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .compare-val.red {
+      color: #EF4444;
+    }
+
+    .compare-val.gold {
+      color: var(--gold-light);
+    }
+
+    /* Equivalencia de Ahorro (Poder psicológico) */
+    .equivalent-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed var(--border-color);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+    .equivalent-title {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    .equivalent-text {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--gold-light);
+      line-height: 1.4;
+    }
+
+    /* Proyecciones a largo plazo */
+    .projection-section {
+      margin-top: 1.8rem;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1.5rem;
+    }
+
+    .projection-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .projection-row {
+      margin-bottom: 0.9rem;
+    }
+
+    .projection-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .projection-years {
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .projection-saved {
+      font-weight: 600;
+      color: var(--green);
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green-dark), var(--green));
+      width: 0%;
+      border-radius: 3px;
+      transition: width 0.5s cubic-bezier(0.1, 0.8, 0.3, 1);
+    }
+
+    /* Tabla comparativa */
+    .table-section {
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .section-title::after, .section-title::before {
+      content: '';
+      height: 1px;
+      width: 50px;
+      background: linear-gradient(90deg, transparent, var(--border-color));
+    }
+    .section-title::after {
+      background: linear-gradient(90deg, var(--border-color), transparent);
+    }
+
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .comp-table th, .comp-table td {
+      padding: 0.9rem 1rem;
+      text-align: left;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .comp-table th {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-main);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    .comp-table td:first-child {
+      font-weight: 500;
+      color: var(--text-main);
+      width: 45%;
+    }
+
+    .comp-table td:nth-child(2) {
+      color: rgba(239, 68, 68, 0.9);
+      background: rgba(239, 68, 68, 0.02);
+      width: 27.5%;
+    }
+
+    .comp-table td:nth-child(3) {
+      color: var(--green);
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.02);
+      width: 27.5%;
+    }
+
+    .comp-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Mini Mockups del Comandero */
+    .mockups-section {
+      margin-bottom: 2rem;
+    }
+
+    .mockup-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    @media (min-width: 600px) {
+      .mockup-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .mockup-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .mockup-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-glow);
+    }
+
+    .mockup-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .mockup-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+    }
+
+    .mockup-desc {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    /* Footer y Accion */
+    footer {
+      text-align: center;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border-color);
+      margin-top: 1rem;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border: none;
+      color: #0A0A0B;
+      padding: 0.9rem 2.2rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(197, 168, 90, 0.3);
+      transition: all 0.2s ease;
+      font-family: var(--font-body);
+      text-decoration: none;
+      margin-bottom: 1rem;
+    }
+
+    .cta-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 25px rgba(197, 168, 90, 0.45);
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    }
+
+    .footer-desc {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Header -->
+    <header>
+      <div class="badge-comercial">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Estudio de Rentabilidad
+      </div>
+      <h1>Comandero Digital</h1>
+      <p class="subtitle">Calcula cuánto estás perdiendo al año en cuotas mensuales y descubre el ahorro con nuestra tarifa plana de 200€ al año.</p>
+    </header>
+
+    <!-- Grid de Calculadora -->
+    <div class="calculator-grid">
+      
+      <!-- LADO CONTROL (Izquierda) -->
+      <div class="card card-control">
+        <div class="control-group">
+          <div class="control-label-wrap">
+            <div class="control-label">Tu Cuota Mensual Actual</div>
+            <div class="control-value" id="current-monthly-display">150<span>€/mes</span></div>
+          </div>
+          <div class="slider-container">
+            <input type="range" min="50" max="300" step="10" value="150" class="range-slider" id="monthly-slider">
+            <div class="slider-ticks">
+              <span>50€</span>
+              <span>100€</span>
+              <span>150€</span>
+              <span>200€</span>
+              <span>250€</span>
+              <span>300€</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-benefits">
+          <div class="mini-benefit-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            <span><strong>Sin hardware obligado:</strong> usa tus propios móviles y tablets baratas.</span>
+          </div>
+          <div class="mini-benefit-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            <span><strong>Modo Offline Integrado:</strong> no dependes de la fibra o el Wifi.</span>
+          </div>
+          <div class="mini-benefit-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            <span><strong>Control Absoluto:</strong> cambia menús y precios tú mismo en 5 segs.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LADO RESULTADOS (Derecha) -->
+      <div class="card card-results">
+        <div class="results-header">
+          <div class="results-header-title">Impacto en tu negocio</div>
+        </div>
+
+        <div class="saving-badge">
+          <div class="saving-label">Ahorro Neto Anual</div>
+          <div class="saving-amount" id="annual-saving-display">1.600€</div>
+        </div>
+
+        <div class="compare-row">
+          <div class="compare-label">Tu coste anual actual:</div>
+          <div class="compare-val red" id="current-annual-display">1.800€</div>
+        </div>
+
+        <div class="compare-row highlight">
+          <div class="compare-label">Coste anual Comandero:</div>
+          <div class="compare-val gold" id="comandero-annual-display">200€</div>
+        </div>
+
+        <!-- Equivalencia del ahorro -->
+        <div class="equivalent-box">
+          <div class="equivalent-title">El Ahorro del 1º año equivale a:</div>
+          <div class="equivalent-text" id="equivalent-text-display">Un viaje de 7 días a Tenerife Todo Incluido para 2 personas.</div>
+        </div>
+
+        <!-- Proyecciones -->
+        <div class="projection-section">
+          <div class="projection-title">Ahorro Acumulado en el tiempo</div>
+          
+          <div class="projection-row">
+            <div class="projection-labels">
+              <span class="projection-years">En 1 Año</span>
+              <span class="projection-saved" id="proj-1yr">1.600€</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bar-1yr"></div>
+            </div>
+          </div>
+
+          <div class="projection-row">
+            <div class="projection-labels">
+              <span class="projection-years">En 3 Años</span>
+              <span class="projection-saved" id="proj-3yr">4.800€</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bar-3yr"></div>
+            </div>
+          </div>
+
+          <div class="projection-row">
+            <div class="projection-labels">
+              <span class="projection-years">En 5 Años</span>
+              <span class="projection-saved" id="proj-5yr">8.000€</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bar-5yr"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Sección: Comparativa detallada -->
+    <div class="table-section">
+      <div class="section-title">Comparativa de Condiciones</div>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Concepto / Característica</th>
+            <th>TPV Tradicional</th>
+            <th>Nuestro Comandero</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Licencia Anual</td>
+            <td>1.800€ - 2.040€</td>
+            <td><strong>200€</strong> flat</td>
+          </tr>
+          <tr>
+            <td>Comisiones por dispositivo extra</td>
+            <td>Sí (+30€/mes por móvil)</td>
+            <td><strong>Gratis</strong> (Móviles ilimitados)</td>
+          </tr>
+          <tr>
+            <td>Permanencia obligatoria</td>
+            <td>Suele ser de 12 a 24 meses</td>
+            <td><strong>Sin permanencia</strong></td>
+          </tr>
+          <tr>
+            <td>Modificación de carta/precios</td>
+            <td>Requiere soporte o cuota extra</td>
+            <td><strong>Gratis</strong> (Editable por ti en admin)</td>
+          </tr>
+          <tr>
+            <td>Uso de móviles existentes</td>
+            <td>No (Hardware propietario obligatorio)</td>
+            <td><strong>Sí</strong> (Cualquier móvil o tablet)</td>
+          </tr>
+          <tr>
+            <td>Funcionamiento sin internet (local)</td>
+            <td>Rígido / Se bloquea</td>
+            <td><strong>Sí</strong> (Sincronización automática)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Sección: Pantallas Mockups -->
+    <div class="mockups-section">
+      <div class="section-title">El Sistema en tu Local</div>
+      <div class="mockup-grid">
+        <div class="mockup-card">
+          <div class="mockup-icon">📱</div>
+          <div class="mockup-title">Camarero</div>
+          <div class="mockup-desc">Toma notas al vuelo en mesas con notas de cocina y variantes.</div>
+        </div>
+        <div class="mockup-card">
+          <div class="mockup-icon">🍳</div>
+          <div class="mockup-title">Cocina</div>
+          <div class="mockup-desc">Pantalla táctil que recibe solo comida en tiempo real.</div>
+        </div>
+        <div class="mockup-card">
+          <div class="mockup-icon">🍺</div>
+          <div class="mockup-title">Barra</div>
+          <div class="mockup-desc">Pantalla con sonidos para comandar las bebidas al instante.</div>
+        </div>
+        <div class="mockup-card">
+          <div class="mockup-icon">⚙️</div>
+          <div class="mockup-title">Encargado</div>
+          <div class="mockup-desc">Controla turnos, ventas diarias y edita carta desde su móvil.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer y Accion -->
+    <footer>
+      <button class="cta-btn" onclick="iniciarContacto()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Prueba Gratis 15 Días
+      </button>
+      <p class="footer-desc">Comandero Digital — Ahorro inteligente para el hostelero independiente.</p>
+    </footer>
+
+  </div>
+
+  <script>
+    const slider = document.getElementById('monthly-slider');
+    const monthlyDisplay = document.getElementById('current-monthly-display');
+    const currentAnnualDisplay = document.getElementById('current-annual-display');
+    const annualSavingDisplay = document.getElementById('annual-saving-display');
+    const equivalentTextDisplay = document.getElementById('equivalent-text-display');
+    
+    // Proyecciones
+    const proj1yr = document.getElementById('proj-1yr');
+    const proj3yr = document.getElementById('proj-3yr');
+    const proj5yr = document.getElementById('proj-5yr');
+    
+    // Barras
+    const bar1yr = document.getElementById('bar-1yr');
+    const bar3yr = document.getElementById('bar-3yr');
+    const bar5yr = document.getElementById('bar-5yr');
+
+    const COMANDERO_ANNUAL_COST = 200;
+
+    // Equivalencias dinámicas en base al ahorro anual (Enfocadas 100% en viajes)
+    function getEquivalentBenefits(savings) {
+      if (savings < 500) {
+        return "Una escapada de fin de semana con Spa para 2 personas.";
+      } else if (savings < 900) {
+        return "Un viaje de 3 días a Mallorca para 2 personas (Vuelo + Hotel).";
+      } else if (savings < 1300) {
+        return "Un viaje de 4 días en París o Roma para 2 personas (Vuelo + Hotel).";
+      } else if (savings < 1800) {
+        return "Un viaje de 7 días a Tenerife Todo Incluido para 2 personas (Vuelo + Resort).";
+      } else if (savings < 2500) {
+        return "Un Crucero completo de una semana por el Mediterráneo para 2 personas.";
+      } else {
+        return "Un viaje de una semana a Punta Cana Todo Incluido para 2 personas (Resort de Lujo).";
+      }
+    }
+
+    function formatCurrency(val) {
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + '€';
+    }
+
+    function calculate() {
+      const monthly = parseInt(slider.value, 10);
+      const currentAnnual = monthly * 12;
+      const annualSaving = currentAnnual - COMANDERO_ANNUAL_COST;
+      
+      const saving3yr = annualSaving * 3;
+      const saving5yr = annualSaving * 5;
+
+      // Actualizar números en pantalla
+      monthlyDisplay.innerHTML = `${monthly}<span>€/mes</span>`;
+      currentAnnualDisplay.textContent = formatCurrency(currentAnnual);
+      annualSavingDisplay.textContent = formatCurrency(annualSaving);
+      
+      proj1yr.textContent = formatCurrency(annualSaving);
+      proj3yr.textContent = formatCurrency(saving3yr);
+      proj5yr.textContent = formatCurrency(saving5yr);
+
+      // Actualizar equivalencia
+      equivalentTextDisplay.textContent = getEquivalentBenefits(annualSaving);
+
+      // Calcular anchos de barras (máximo teórico a 300€/mes es 3400€/año ahorrado, a 5 años son 17000€)
+      const maxSaving5yr = (300 * 12 - 200) * 5; // 17000€
+      
+      const width1 = Math.min(100, Math.max(5, (annualSaving / maxSaving5yr) * 100 * 5)); // escalado relativo a su maximo
+      const width3 = Math.min(100, Math.max(5, (saving3yr / maxSaving5yr) * 100));
+      const width5 = Math.min(100, Math.max(5, (saving5yr / maxSaving5yr) * 100));
+
+      bar1yr.style.width = `${width1}%`;
+      bar3yr.style.width = `${width3}%`;
+      bar5yr.style.width = `${width5}%`;
+    }
+
+    slider.addEventListener('input', calculate);
+    
+    // Ejecutar al cargar
+    window.addEventListener('DOMContentLoaded', () => {
+      calculate();
+    });
+
+    function iniciarContacto() {
+      const currentMonthly = slider.value;
+      const annualSavings = (currentMonthly * 12) - COMANDERO_ANNUAL_COST;
+      const text = `Hola! He usado la calculadora de ahorro de Comandero. Actualmente pago unos ${currentMonthly}€/mes y veo que ahorraría ${annualSavings}€ al año. Me gustaría concertar una prueba gratis de 15 días.`;
+      
+      // WhatsApp directo
+      const msg = encodeURIComponent(text);
+      window.open(`https://wa.me/34644700830?text=${msg}`, '_blank');
+    }
+  </script>
+</body>
+</html>

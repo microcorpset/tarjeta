@@ -364,7 +364,7 @@
                     <div class="hospitality-header-line"></div>
                 </div>
                 <div class="hospitality-links">
-                    <a href="https://microcorpset.github.io/comandero-bar/comandero-landing-26.html" class="btn hospitality-main" target="_blank" rel="noopener noreferrer">
+                    <a href="#" id="btnHostelModal" class="btn hospitality-main">
                         <span class="icon"><i class="fas fa-utensils"></i></span> ESPECIAL HOSTELER&Iacute;A
                     </a>
                     <div class="hostel-sub-grid">
@@ -423,6 +423,26 @@
         </div>
     </div>
 
+    <!-- Modal Especial Hostelería -->
+    <div id="hostelModal" class="modal-overlay">
+        <div class="modal-content" style="border-color: rgba(245, 158, 11, 0.25);">
+            <button class="close-modal" id="closeHostelModal">&times;</button>
+            <div style="font-size: 2.5rem; color: #fbbf24; margin-bottom: 15px;">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <h2 class="modal-title">Especial Hostelería</h2>
+            <p class="modal-message" style="margin-bottom: 25px;">Descubre cómo modernizar tu local de hostelería y ahorrar más de 1.600€ al año.</p>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <a href="calculadora.html" class="btn" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; border: none; font-weight: 700; width: 100%; display: flex; align-items: center; justify-content: center; padding: 14px 20px; text-decoration: none; border-radius: 12px; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);">
+                    <span class="icon" style="margin-right: 8px; font-size: 1.1rem;"><i class="fas fa-calculator"></i></span> Calcular mi Ahorro
+                </a>
+                <a href="https://microcorpset.github.io/comandero-bar/comandero-landing-26.html" class="btn" style="background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%); color: white; border: none; font-weight: 700; width: 100%; display: flex; align-items: center; justify-content: center; padding: 14px 20px; text-decoration: none; border-radius: 12px; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25);" target="_blank" rel="noopener noreferrer">
+                    <span class="icon" style="margin-right: 8px; font-size: 1.1rem;"><i class="fas fa-eye"></i></span> Ver Demo Comandero
+                </a>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const MOSTRAR_ANUNCIO = true; 
@@ -473,6 +493,27 @@
             btnCancel.addEventListener('click', closeModal);
             btnClose.addEventListener('click', closeModal);
             modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+
+            // Modal Hostelería
+            const hostelModal = document.getElementById('hostelModal');
+            const btnHostelModal = document.getElementById('btnHostelModal');
+            const btnCloseHostel = document.getElementById('closeHostelModal');
+
+            if (btnHostelModal && hostelModal) {
+                btnHostelModal.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    hostelModal.classList.add('active');
+                });
+            }
+
+            const closeHostel = () => {
+                hostelModal.classList.remove('active');
+            };
+
+            if (btnCloseHostel) {
+                btnCloseHostel.addEventListener('click', closeHostel);
+            }
+            hostelModal.addEventListener('click', (e) => { if(e.target === hostelModal) closeHostel(); });
 
             document.addEventListener('contextmenu', e => e.preventDefault());
             document.onkeydown = function(e) {
